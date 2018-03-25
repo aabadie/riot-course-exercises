@@ -52,7 +52,7 @@ static const shell_command_t commands[] = {
 
 int main(void)
 {
-    puts("RIOT application with a thread");
+    puts("RIOT application with thread safe IPC");
 
     pid = thread_create(stack, sizeof(stack),
                         THREAD_PRIORITY_MAIN - 1,

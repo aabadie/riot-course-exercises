@@ -1,10 +1,12 @@
-APPLICATION=first-thread
+APPLICATION=timers
 
-BOARD ?= native
+BOARD ?= b-l072z-lrwan1 
 
 USEMODULE += shell
 USEMODULE += shell_commands
 USEMODULE += ps
+
+USEMODULE += xtimer
 
 RIOTBASE ?= $(CURDIR)/../../../RIOT
 

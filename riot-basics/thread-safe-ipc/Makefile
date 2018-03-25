@@ -1,4 +1,4 @@
-APPLICATION=first-app-with-thread
+APPLICATION=thread-safe-ipc
 
 BOARD ?= native
 

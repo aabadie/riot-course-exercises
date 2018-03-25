@@ -17,7 +17,7 @@ static void *thread_handler(void *arg)
 
 int main(void)
 {
-    puts("RIOT application with a thread");
+    puts("First RIOT application with a thread");
 
     thread_create(stack, sizeof(stack),
                   THREAD_PRIORITY_MAIN,
