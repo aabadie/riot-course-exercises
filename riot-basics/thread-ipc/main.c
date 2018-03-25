@@ -45,10 +45,10 @@ int main(void)
     puts("RIOT application with a thread");
 
     pid = thread_create(stack, sizeof(stack),
-                       THREAD_PRIORITY_MAIN - 1,
-                       0,
-                       thread_handler,
-                       NULL, "my thread");
+                        THREAD_PRIORITY_MAIN - 1,
+                        0,
+                        thread_handler,
+                        NULL, "my thread");
 
     char line_buf[SHELL_DEFAULT_BUFSIZE];
     shell_run(commands, line_buf, SHELL_DEFAULT_BUFSIZE);
