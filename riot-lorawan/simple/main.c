@@ -34,6 +34,12 @@ int main(void)
 
     while (1) {
         printf("Sending message: %s\n", message);
+
+        /* send the LoRaWAN message  */
+
+        /* wait for any potentially received data */
+
+        /* sleep 20 secs */
     }
 
     return 0; /* should never be reached */

@@ -8,17 +8,12 @@
 
 #include <string.h>
 
-#include "thread.h"
 #include "xtimer.h"
 
 #include "net/loramac.h"
 #include "semtech_loramac.h"
 
 #include "board.h"
-
-#define SENDER_PRIO         (THREAD_PRIORITY_MAIN - 1)
-static kernel_pid_t sender_pid;
-static char sender_stack[THREAD_STACKSIZE_MAIN / 2];
 
 /* Declare globally the loramac descriptor */
 static semtech_loramac_t loramac;
@@ -31,10 +26,8 @@ static const uint8_t appkey[LORAMAC_APPKEY_LEN] = { 0x00, 0x00, 0x00, 0x00, 0x00
 /* The simple message to send */
 const char *message = "This is RIOT!";
 
-static void *sender(void *arg)
+static void sender(void)
 {
-    (void)arg;
-
     while (1) {
         printf("Sending message: %s\n", message);
         /* send the message every 20 seconds */
@@ -73,9 +66,8 @@ int main(void)
 
     puts("Join procedure succeeded");
 
-    /* start the sender thread */
-    sender_pid = thread_create(sender_stack, sizeof(sender_stack),
-                               SENDER_PRIO, 0, sender, NULL, "sender");
+    /* call the sender */
+    sender();
 
     return 0;
 }
