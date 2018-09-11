@@ -24,7 +24,8 @@ static semtech_loramac_t loramac;
 /* Declare globally the sensor device descriptor */
 static hts221_t hts221;
 
-/* TODO: Declare globally Cayenne LPP descriptor */
+/* Cayenne LPP buffer */
+static cayenne_lpp_t lpp;
 
 /* Device and application informations required for OTAA activation */
 static const uint8_t deveui[LORAMAC_DEVEUI_LEN] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
@@ -44,7 +45,8 @@ static void sender(void)
             puts(" -- failed to read temperature!");
         }
 
-        /* TODO: prepare cayenne lpp payload */
+        cayenne_lpp_add_temperature(&lpp, 0, (float)temperature / 10);
+        cayenne_lpp_add_relative_humidity(&lpp, 1, (float)humidity / 10);
 
         printf("Sending LPP data\n");
 
@@ -54,7 +56,8 @@ static void sender(void)
         /* wait for any potentially received data */
         semtech_loramac_recv(&loramac);
 
-        /* TODO: clear buffer once done */
+        /* clear buffer once done */
+        cayenne_lpp_reset(&lpp);
 
         /* sleep 20 secs */
         xtimer_sleep(20);
@@ -105,5 +108,5 @@ int main(void)
     /* call the sender */
     sender();
 
-    return 0;
+    return 0; /* should never be reached */
 }

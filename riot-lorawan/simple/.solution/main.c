@@ -16,41 +16,18 @@
 #include "board.h"
 
 /* Declare globally the loramac descriptor */
-static semtech_loramac_t loramac;
-
-/* TODO: Declare globally the sensor device descriptor */
+semtech_loramac_t loramac;
 
 /* Device and application informations required for OTAA activation */
 static const uint8_t deveui[LORAMAC_DEVEUI_LEN] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 static const uint8_t appeui[LORAMAC_APPEUI_LEN] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 static const uint8_t appkey[LORAMAC_APPKEY_LEN] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
-static void sender(void)
-{
-    while (1) {
-        char message[32];
-        /* TODO: do some measurements */
-
-        /* TODO: prepare the message to send */
-
-        /* send the LoRaWAN message  */
-        semtech_loramac_send(&loramac, (uint8_t *)message, strlen(message));
-
-        /* wait for any potentially received data */
-        semtech_loramac_recv(&loramac);
-
-        /* sleep 20 secs */
-        xtimer_sleep(20);
-    }
-
-    /* this should never be reached */
-    return NULL;
-}
+/* The simple message to send */
+const char *message = "This is RIOT!";
 
 int main(void)
 {
-    /* TODO: initialize the sensor */
-
     /* initialize the loramac stack */
     semtech_loramac_init(&loramac);
 
@@ -71,8 +48,19 @@ int main(void)
 
     puts("Join procedure succeeded");
 
-    /* call the sender */
-    sender();
+    while (1) {
+        printf("Sending message: %s\n", message);
 
-    return 0;
+        /* send the LoRaWAN message  */
+        semtech_loramac_send(&loramac, (uint8_t *)message, strlen(message));
+
+        /* wait for any potentially received data */
+        semtech_loramac_recv(&loramac);
+
+        /* sleep 20 secs */
+        xtimer_sleep(20);
+    }
+
+    return 0; /* should never be reached */
 }
+

@@ -8,6 +8,8 @@
 
 #include <string.h>
 
+#include "thread.h"
+
 #include "net/loramac.h"
 #include "semtech_loramac.h"
 
@@ -18,21 +20,68 @@
 
 #include "board.h"
 
+#ifdef MODULE_PM_LAYERED
+#include "pm_layered.h"
+#endif
+#include "periph/rtc.h"
+
+/* Use the STOP mode to ensure memory retention between each send */
+#define PM_MODE             (1)
+
+/* Messages are sent every 20s to respect the duty cycle on each channel */
+#define PERIOD              (20U)
+
+/* Declare sender thread PID */
+static kernel_pid_t sender_pid;
+
 /* Declare globally the loramac descriptor */
 static semtech_loramac_t loramac;
 
 /* Declare globally the sensor device descriptor */
 static hts221_t hts221;
 
-/* TODO: Declare globally Cayenne LPP descriptor */
+/* Cayenne LPP buffer */
+static cayenne_lpp_t lpp;
 
 /* Device and application informations required for OTAA activation */
 static const uint8_t deveui[LORAMAC_DEVEUI_LEN] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 static const uint8_t appeui[LORAMAC_APPEUI_LEN] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 static const uint8_t appkey[LORAMAC_APPKEY_LEN] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
+static void rtc_cb(void *arg)
+{
+    (void) arg;
+    msg_t msg;
+    msg_send(&msg, sender_pid);
+}
+
+static void _prepare_next_alarm(void)
+{
+    struct tm time;
+    rtc_get_time(&time);
+    /* set initial alarm */
+    time.tm_sec += PERIOD;
+    while (time.tm_sec > 60) {
+        time.tm_min++;
+        time.tm_sec -= 60;
+    }
+    while (time.tm_min > 60) {
+        time.tm_hour++;
+        time.tm_min -= 60;
+    }
+    while (time.tm_hour > 24) {
+        time.tm_mday++;
+        time.tm_hour -= 24;
+    }
+    rtc_set_alarm(&time, rtc_cb, NULL);
+}
+
 static void sender(void)
 {
+    msg_t msg;
+    msg_t msg_queue[8];
+    msg_init_queue(msg_queue, 8);
+
     while (1) {
         /* do some measurements */
         uint16_t humidity = 0;
@@ -44,7 +93,8 @@ static void sender(void)
             puts(" -- failed to read temperature!");
         }
 
-        /* TODO: prepare cayenne lpp payload */
+        cayenne_lpp_add_temperature(&lpp, 0, (float)temperature / 10);
+        cayenne_lpp_add_relative_humidity(&lpp, 1, (float)humidity / 10);
 
         printf("Sending LPP data\n");
 
@@ -54,10 +104,19 @@ static void sender(void)
         /* wait for any potentially received data */
         semtech_loramac_recv(&loramac);
 
-        /* TODO: clear buffer once done */
+        /* clear buffer once done */
+        cayenne_lpp_reset(&lpp);
 
-        /* sleep 20 secs */
-        xtimer_sleep(20);
+        /* Schedule the next wake-up alarm */
+        _prepare_next_alarm();
+
+#ifdef MODULE_PM_LAYERED
+        /* enable low-power mode */
+        pm_set(PM_MODE);
+#endif
+
+        /* waiting for IPC message from wake-up alarm */
+        msg_receive(&msg);
     }
 
     /* this should never be reached */
@@ -102,8 +161,11 @@ int main(void)
 
     puts("Join procedure succeeded");
 
+    /* set the sender PID to this thread */
+    sender_pid = thread_getpid();
+
     /* call the sender */
     sender();
 
-    return 0;
+    return 0; /* should never be reached */
 }

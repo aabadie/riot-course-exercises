@@ -8,32 +8,55 @@
 
 #include <string.h>
 
-#include "thread.h"
 #include "xtimer.h"
 
 #include "net/loramac.h"
 #include "semtech_loramac.h"
 
-#include "board.h"
+#include "hts221.h"
+#include "hts221_params.h"
 
-#define SENDER_PRIO         (THREAD_PRIORITY_MAIN - 1)
-static kernel_pid_t sender_pid;
-static char sender_stack[THREAD_STACKSIZE_MAIN / 2];
+#include "board.h"
 
 /* Declare globally the loramac descriptor */
 static semtech_loramac_t loramac;
+
+/* Declare globally the sensor device descriptor */
+static hts221_t hts221;
 
 /* Device and application informations required for OTAA activation */
 static const uint8_t deveui[LORAMAC_DEVEUI_LEN] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 static const uint8_t appeui[LORAMAC_APPEUI_LEN] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 static const uint8_t appkey[LORAMAC_APPKEY_LEN] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
-/* The simple message to send */
-const char *message = "This is RIOT!";
-
-static void *sender(void *arg)
+static void sender(void)
 {
-    (void)arg;
+    while (1) {
+        char message[32];
+        /* do some measurements */
+        uint16_t humidity = 0;
+        int16_t temperature = 0;
+        if (hts221_read_humidity(&hts221, &humidity) != HTS221_OK) {
+            puts(" -- failed to read humidity!");
+        }
+        if (hts221_read_temperature(&hts221, &temperature) != HTS221_OK) {
+            puts(" -- failed to read temperature!");
+        }
+
+        sprintf(message, "H: %u.%u, T:%u.%u",
+                (humidity / 10), (humidity % 10),
+                (temperature / 10), (temperature % 10));
+        printf("Sending data: %s\n", message);
+
+        /* send the LoRaWAN message  */
+        semtech_loramac_send(&loramac, (uint8_t *)message, strlen(message));
+
+        /* wait for any potentially received data */
+        semtech_loramac_recv(&loramac);
+
+        /* sleep 20 secs */
+        xtimer_sleep(20);
+    }
 
     /* this should never be reached */
     return NULL;
@@ -41,6 +64,22 @@ static void *sender(void *arg)
 
 int main(void)
 {
+    if (hts221_init(&hts221, &hts221_params[0]) != HTS221_OK) {
+        puts("Sensor initialization failed");
+        LED3_TOGGLE;
+        return 1;
+    }
+    if (hts221_power_on(&hts221) != HTS221_OK) {
+        puts("Sensor initialization power on failed");
+        LED3_TOGGLE;
+        return 1;
+    }
+    if (hts221_set_rate(&hts221, hts221.p.rate) != HTS221_OK) {
+        puts("Sensor continuous mode setup failed");
+        LED3_TOGGLE;
+        return 1;
+    }
+
     /* initialize the loramac stack */
     semtech_loramac_init(&loramac);
 
@@ -61,7 +100,9 @@ int main(void)
 
     puts("Join procedure succeeded");
 
-    /* start the sender thread */
+    /* call the sender */
+    sender();
 
     return 0; /* should never be reached */
 }
+

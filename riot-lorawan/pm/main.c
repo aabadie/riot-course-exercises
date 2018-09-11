@@ -8,8 +8,6 @@
 
 #include <string.h>
 
-#include "thread.h"
-
 #include "net/loramac.h"
 #include "semtech_loramac.h"
 
@@ -19,11 +17,6 @@
 #include "cayenne_lpp.h"
 
 #include "board.h"
-
-
-#define SENDER_PRIO         (THREAD_PRIORITY_MAIN - 1)
-static kernel_pid_t sender_pid;
-static char sender_stack[THREAD_STACKSIZE_MAIN / 2];
 
 /* Messages are sent every 20s to respect the duty cycle on each channel */
 #define PERIOD              (20U)
@@ -42,18 +35,13 @@ static const uint8_t deveui[LORAMAC_DEVEUI_LEN] = { 0x00, 0x00, 0x00, 0x00, 0x00
 static const uint8_t appeui[LORAMAC_APPEUI_LEN] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 static const uint8_t appkey[LORAMAC_APPKEY_LEN] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
-static void *sender(void *arg)
+static void sender(void)
 {
-    (void)arg;
-
     msg_t msg;
     msg_t msg_queue[8];
     msg_init_queue(msg_queue, 8);
 
     while (1) {
-        /* waiting for messages before sending to TTN */
-        msg_receive(&msg);
-
         /* do some measurements */
         uint16_t humidity = 0;
         int16_t temperature = 0;
@@ -70,18 +58,21 @@ static void *sender(void *arg)
 
         printf("Sending LPP data\n");
 
-        /* send the message every 20 seconds */
+        /* send the LoRaWAN message  */
         semtech_loramac_send(&loramac, lpp.buffer, lpp.cursor);
-        /* Wait until the send cycle has completed */
+
+        /* wait for any potentially received data */
         semtech_loramac_recv(&loramac);
 
         /* clear lpp buffer once done */
         cayenne_lpp_reset(&lpp);
 
-        /* Schedule the next wake-up alarm */
+        /* TODO: Schedule the next wake-up alarm */
 
-        /* Switch to low-power mode */
+        /* TODO: Switch to low-power mode */
 
+        /* waiting for IPC message from wake-up alarm */
+        msg_receive(&msg);
     }
 
     /* this should never be reached */
@@ -123,11 +114,8 @@ int main(void)
 
     puts("Join procedure succeeded");
 
-    /* start the sender thread */
-    sender_pid = thread_create(sender_stack, sizeof(sender_stack),
-                               SENDER_PRIO, 0, sender, NULL, "sender");
-
-    /* trigger the first send explicitely */
+    /* call the sender */
+    sender();
 
     return 0;
 }
