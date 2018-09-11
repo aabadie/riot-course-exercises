@@ -18,16 +18,13 @@
 
 #include "board.h"
 
-/* Messages are sent every 20s to respect the duty cycle on each channel */
-#define PERIOD              (20U)
-
 /* Declare globally the loramac descriptor */
 static semtech_loramac_t loramac;
 
 /* Declare globally the sensor device descriptor */
 static hts221_t hts221;
 
-/* Declare globally Cayenne LPP descriptor */
+/* Cayenne LPP buffer */
 static cayenne_lpp_t lpp;
 
 /* Device and application informations required for OTAA activation */
@@ -37,10 +34,6 @@ static const uint8_t appkey[LORAMAC_APPKEY_LEN] = { 0x00, 0x00, 0x00, 0x00, 0x00
 
 static void sender(void)
 {
-    msg_t msg;
-    msg_t msg_queue[8];
-    msg_init_queue(msg_queue, 8);
-
     while (1) {
         /* do some measurements */
         uint16_t humidity = 0;
@@ -52,7 +45,6 @@ static void sender(void)
             puts(" -- failed to read temperature!");
         }
 
-        /* prepare cayenne lpp payload */
         cayenne_lpp_add_temperature(&lpp, 0, (float)temperature / 10);
         cayenne_lpp_add_relative_humidity(&lpp, 1, (float)humidity / 10);
 
@@ -63,33 +55,31 @@ static void sender(void)
         /* Wait until the send cycle has completed */
         semtech_loramac_recv(&loramac);
 
-        /* clear lpp buffer once done */
+        /* clear buffer once done */
         cayenne_lpp_reset(&lpp);
 
-        /* Schedule the next wake-up alarm */
-
-        /* Switch to low-power mode */
-
-        /* waiting for IPC message from wake-up alarm */
-        msg_receive(&msg);
+        xtimer_sleep(20);
     }
 
     /* this should never be reached */
-    return;
+    return NULL;
 }
 
 int main(void)
 {
     if (hts221_init(&hts221, &hts221_params[0]) != HTS221_OK) {
         puts("Sensor initialization failed");
+        LED3_TOGGLE;
         return 1;
     }
     if (hts221_power_on(&hts221) != HTS221_OK) {
         puts("Sensor initialization power on failed");
+        LED3_TOGGLE;
         return 1;
     }
     if (hts221_set_rate(&hts221, hts221.p.rate) != HTS221_OK) {
         puts("Sensor continuous mode setup failed");
+        LED3_TOGGLE;
         return 1;
     }
 
@@ -116,5 +106,5 @@ int main(void)
     /* call the sender */
     sender();
 
-    return 0;
+    return 0; /* should never be reached */
 }
