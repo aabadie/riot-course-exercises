@@ -8,8 +8,6 @@
 
 #include <string.h>
 
-#include "thread.h"
-
 #include "net/loramac.h"
 #include "semtech_loramac.h"
 
@@ -19,10 +17,6 @@
 #include "cayenne_lpp.h"
 
 #include "board.h"
-
-#define SENDER_PRIO         (THREAD_PRIORITY_MAIN - 1)
-static kernel_pid_t sender_pid;
-static char sender_stack[THREAD_STACKSIZE_MAIN / 2];
 
 /* Declare globally the loramac descriptor */
 static semtech_loramac_t loramac;
@@ -37,10 +31,8 @@ static const uint8_t deveui[LORAMAC_DEVEUI_LEN] = { 0x00, 0x00, 0x00, 0x00, 0x00
 static const uint8_t appeui[LORAMAC_APPEUI_LEN] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 static const uint8_t appkey[LORAMAC_APPKEY_LEN] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
-static void *sender(void *arg)
+static void sender(void)
 {
-    (void)arg;
-
     while (1) {
         /* do some measurements */
         uint16_t humidity = 0;
@@ -67,7 +59,7 @@ static void *sender(void *arg)
     }
 
     /* this should never be reached */
-    return NULL;
+    return;
 }
 
 int main(void)
@@ -108,9 +100,8 @@ int main(void)
 
     puts("Join procedure succeeded");
 
-    /* start the sender thread */
-    sender_pid = thread_create(sender_stack, sizeof(sender_stack),
-                               SENDER_PRIO, 0, sender, NULL, "sender");
+    /* call the sender */
+    sender();
 
     return 0;
 }
