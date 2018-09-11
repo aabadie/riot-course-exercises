@@ -1,6 +1,6 @@
 # Adding Low Power
 
-## **Goal **
+## **Goal**
 Write an application that periodically sends data and sleeps for reducing
 power consumption.
 
