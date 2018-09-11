@@ -36,12 +36,6 @@ static void sender(void)
         if (semtech_loramac_recv(&loramac) == SEMTECH_LORAMAC_DATA_RECEIVED) {
             loramac.rx_data.payload[loramac.rx_data.payload_len] = 0;
             printf("Data received: %s\n", (char *)loramac.rx_data.payload);
-            uint8_t count = 10;
-            while (count--) {
-                LED1_TOGGLE;
-                xtimer_usleep(100 * US_PER_MS);
-                LED1_TOGGLE;
-                xtimer_usleep(100 * US_PER_MS);
             }
         }
 
