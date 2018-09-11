@@ -114,7 +114,7 @@ static void sender(void)
         pm_set(PM_MODE);
 #endif
 
-        /* waiting for IPC message from RTC */
+        /* waiting for IPC message from wake-up alarm */
         msg_receive(&msg);
     }
 
