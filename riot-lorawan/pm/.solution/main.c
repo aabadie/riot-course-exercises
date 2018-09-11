@@ -119,7 +119,7 @@ static void sender(void)
     }
 
     /* this should never be reached */
-    return NULL;
+    return;
 }
 
 int main(void)
