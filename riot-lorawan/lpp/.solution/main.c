@@ -50,14 +50,16 @@ static void sender(void)
 
         printf("Sending LPP data\n");
 
-        /* send the message every 20 seconds */
+        /* send the LoRaWAN message  */
         semtech_loramac_send(&loramac, lpp.buffer, lpp.cursor);
-        /* Wait until the send cycle has completed */
+
+        /* wait for any potentially received data */
         semtech_loramac_recv(&loramac);
 
         /* clear buffer once done */
         cayenne_lpp_reset(&lpp);
 
+        /* sleep 20 secs */
         xtimer_sleep(20);
     }
 

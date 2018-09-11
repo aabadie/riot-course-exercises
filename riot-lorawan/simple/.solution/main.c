@@ -50,6 +50,7 @@ int main(void)
 
     while (1) {
         printf("Sending message: %s\n", message);
+
         /* send the LoRaWAN message  */
         semtech_loramac_send(&loramac, (uint8_t *)message, strlen(message));
 

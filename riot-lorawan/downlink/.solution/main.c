@@ -30,12 +30,16 @@ static void sender(void)
 {
     while (1) {
         printf("Sending message: %s\n", message);
-        /* send the message every 20 seconds */
+
+        /* send the LoRaWAN message  */
         semtech_loramac_send(&loramac, (uint8_t *)message, strlen(message));
-        /* Wait until the send cycle has completed */
+
+        /* wait for any potentially received data */
         if (semtech_loramac_recv(&loramac) == SEMTECH_LORAMAC_DATA_RECEIVED) {
             loramac.rx_data.payload[loramac.rx_data.payload_len] = 0;
             printf("Data received: %s\n", (char *)loramac.rx_data.payload);
+
+            /* Do some stuff with the LED */
             uint8_t count = 10;
             while (count--) {
                 LED1_TOGGLE;
@@ -45,6 +49,7 @@ static void sender(void)
             }
         }
 
+        /* sleep 20 secs */
         xtimer_sleep(20);
     }
 
