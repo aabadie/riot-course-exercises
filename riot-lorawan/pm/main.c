@@ -67,9 +67,9 @@ static void sender(void)
         /* clear lpp buffer once done */
         cayenne_lpp_reset(&lpp);
 
-        /* Schedule the next wake-up alarm */
+        /* TODO: Schedule the next wake-up alarm */
 
-        /* Switch to low-power mode */
+        /* TODO: Switch to low-power mode */
 
         /* waiting for IPC message from wake-up alarm */
         msg_receive(&msg);

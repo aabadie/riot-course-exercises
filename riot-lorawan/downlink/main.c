@@ -36,7 +36,7 @@ static void sender(void)
 
         /* wait for any potentially received data */
         if (semtech_loramac_recv(&loramac) == SEMTECH_LORAMAC_DATA_RECEIVED) {
-            /* Do some stuff with the LED */
+            /* TODO: Do some stuff with the LED */
         }
 
         /* sleep 20 secs */

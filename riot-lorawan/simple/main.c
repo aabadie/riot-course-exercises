@@ -15,31 +15,31 @@
 
 #include "board.h"
 
-/* Declare globally the loramac descriptor */
+/* TODO: Declare globally the loramac descriptor */
 
-/* Device and application informations required for OTAA activation */
+/* TODO: Device and application informations required for OTAA activation */
 
 /* The simple message to send */
 const char *message = "This is RIOT!";
 
 int main(void)
 {
-    /* initialize the loramac stack */
+    /* TODO: initialize the loramac stack */
 
-    /* use a fast datarate so we don't use the physical layer too much */
+    /* TODO: use a fast datarate so we don't use the physical layer too much */
 
-    /* set the LoRaWAN keys */
+    /* TODO: set the LoRaWAN keys */
 
-    /* start the OTAA join procedure */
+    /* TODO: start the OTAA join procedure */
 
     while (1) {
         printf("Sending message: %s\n", message);
 
-        /* send the LoRaWAN message  */
+        /* TODO: send the LoRaWAN message  */
 
-        /* wait for any potentially received data */
+        /* TODO: wait for any potentially received data */
 
-        /* sleep 20 secs */
+        /* TODO: sleep 20 secs */
     }
 
     return 0; /* should never be reached */
