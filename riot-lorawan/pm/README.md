@@ -16,6 +16,7 @@ power consumption.
 
 _TIP_: Check the RIOT RTC API in
  `http://doc.riot-os.org/group__drivers__periph__rtc.html`
+
 _TIP_: Check the Layered PM infrastructure in
  `http://doc.riot-os.org/group__sys__pm__layered.html`
 
