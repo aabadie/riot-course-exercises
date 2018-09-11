@@ -19,7 +19,7 @@ FEATURES_REQUIRED += periph_rtc
 
 DEVELHELP ?= 1
 
-RIOTBASE ?= $(CURDIR)/../../../RIOT
+RIOTBASE ?= $(CURDIR)/../../../../RIOT
 
 CFLAGS += -DREGION_$(REGION)
 

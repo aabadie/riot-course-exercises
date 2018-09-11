@@ -17,7 +17,7 @@ USEPKG += cayenne-lpp
 
 DEVELHELP ?= 1
 
-RIOTBASE ?= $(CURDIR)/../../../RIOT
+RIOTBASE ?= $(CURDIR)/../../../../RIOT
 
 CFLAGS += -DREGION_$(REGION)
 

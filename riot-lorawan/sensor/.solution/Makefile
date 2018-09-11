@@ -15,7 +15,7 @@ USEPKG += semtech-loramac
 
 DEVELHELP ?= 1
 
-RIOTBASE ?= $(CURDIR)/../../../RIOT
+RIOTBASE ?= $(CURDIR)/../../../../RIOT
 
 CFLAGS += -DREGION_$(REGION)
 
