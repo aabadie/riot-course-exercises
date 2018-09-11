@@ -1,6 +1,6 @@
 # Sensor data to LoRaWAN
 
-## **Goal:**
+## **Goal**
 Write an application that periodically sends data read from a sensor to the
 LoRaWAN network.
 

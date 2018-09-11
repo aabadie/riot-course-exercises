@@ -1,6 +1,6 @@
 # Integration with Cayenne LPP
 
-## **Goal:**
+## **Goal**
 Write an application that sends sensor data to the Cayenne LPP
  integration in TTN.
 
