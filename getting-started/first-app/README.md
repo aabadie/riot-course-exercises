@@ -97,8 +97,8 @@ Building application "first-app" for "b-l072z-lrwan1" with MCU "stm32l0".
   ```
   $ make BOARD=b-l07Z-lrwan1 flash
   ```
-  Now look at the message displayed by the RIOT application in the first serial
-  terminal.
+  Now take a look at the message displayed by the RIOT application in the first
+  serial terminal.
 
 **flash** calls the flasher tool automatically (OpenOCD or iotlab-node in the
 case of IoT-LAB)
