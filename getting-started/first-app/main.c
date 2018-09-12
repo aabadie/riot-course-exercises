@@ -10,5 +10,5 @@
 
 int main(void)
 {
-    puts("My RIOT first application");
+    puts("My first RIOT application");
 }
