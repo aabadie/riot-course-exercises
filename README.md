@@ -3,7 +3,7 @@
 This repository contains the exercise applications developed during the RIOT
 course.
 
-The online course is provided [on github](https://github.com/aabadie/riot-course).
+The online course is available [on github](https://github.com/aabadie/riot-course).
 
 ## License
 
