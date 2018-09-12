@@ -80,7 +80,8 @@ Building application "first-app" for "b-l072z-lrwan1" with MCU "stm32l0".
 
 3. Run the application on hardware.
   <br><br>_**Important note:**_ if you use a node on IoT-LAB, you need to also
-  pass the `IOTLAB_NODE` variable with the correct node assigned to it.
+  pass to the `make` command the `IOTLAB_NODE` variable with the correct node
+  assigned to it.
   __Example:__ `IOTLAB_NODE=st-lrwan1-10.iot-lab.info`.
 
   - Use **term** target to open a serial terminal on the board:
