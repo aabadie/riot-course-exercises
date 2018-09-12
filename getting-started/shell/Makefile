@@ -1,9 +1,9 @@
-APPLICATION=led-app
+APPLICATION=shell
 
 BOARD ?= native
 
 RIOTBASE ?= $(CURDIR)/../../../RIOT
 
-USEMODULE += shell
+# Add modules here
 
 include $(RIOTBASE)/Makefile.include
