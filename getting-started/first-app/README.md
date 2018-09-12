@@ -88,10 +88,10 @@ Building application "first-app" for "b-l072z-lrwan1" with MCU "stm32l0".
   ```sh
   $ make BOARD=b-l07Z-lrwan1 term
   ```
-  Keep the serial terminal open.
   **term** opens a serial terminal on the board (using pyterm by default). In the
   case of IoT-LAB, it opens a SSH tunnel to IoT-LAB and redirects the serial port
   from there.
+  <br>**Keep the serial terminal open.**
   - **In another terminal window**, use the **flash** target to program the
   board:
   ```
