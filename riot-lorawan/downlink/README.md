@@ -14,6 +14,11 @@ from the LoRaWAN network
 - **Optional**: Use the TTN MQTT broker to send and receive data from
   your node. Check the appendix below.
 
+_TIP_: Read received payload, length and port from the
+[`rx_data` member](http://doc.riot-os.org/structsemtech__loramac__t.html)
+in the loramac descriptor.
+
+
 ## Appendix 1: Using the MQTT API
 
 - Follow the MQTT quick start in TTN at
