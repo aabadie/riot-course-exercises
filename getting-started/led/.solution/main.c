@@ -12,7 +12,6 @@
 #include "shell.h"
 
 #include "board.h"
-#include "periph/gpio.h"
 
 static int toggle_handler(int argc, char **argv)
 {

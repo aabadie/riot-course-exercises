@@ -28,7 +28,7 @@ Toggle led 1
 
 2. Add a shell command 'toggle' that toggles the on-board leds.
    You can start from the shell application previously written in
-   `~/riot-course/exercises/getting-started/shell`
+   `~/riot-course/exercises/getting-started/shell`.
    `board.h` also needs to be included.
 
    _note:_ ensure that LEDs number given doesn't exceeds the number of
