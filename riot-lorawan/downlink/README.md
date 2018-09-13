@@ -7,8 +7,8 @@ from the LoRaWAN network
 
 ## Instructions
 
-- Reuse [riot-lorawan/lpp](../lpp) application to make LED1 blink
-  when receiving a message from the LoRaWAN network.
+- Reuse [riot-lorawan/lpp](../lpp) application to print a message
+  when receiving a downlink from the LoRaWAN network.
 - Send downlink messages to your node from the TTN network: go to
   `Devices> [your_device] > Downlinks`
 - **Optional**: Use the TTN MQTT broker to send and receive data from
