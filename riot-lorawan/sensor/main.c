@@ -33,11 +33,13 @@ static void sender(void)
 
         /* prepare the message to send */
 
-        /* send the message every 20 seconds */
+        /* send the LoRaWAN message */
         semtech_loramac_send(&loramac, (uint8_t *)message, strlen(message));
-        /* Wait until the send cycle has completed */
+
+        /* wait for any potential received data */
         semtech_loramac_recv(&loramac);
 
+        /* sleep for 20 secs */
         xtimer_sleep(20);
     }
 
