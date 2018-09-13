@@ -18,7 +18,7 @@
 /* Declare globally the loramac descriptor */
 static semtech_loramac_t loramac;
 
-/* Declare globally the sensor device descriptor */
+/* TODO: Declare globally the sensor device descriptor */
 
 /* Device and application informations required for OTAA activation */
 static const uint8_t deveui[LORAMAC_DEVEUI_LEN] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
@@ -29,9 +29,9 @@ static void sender(void)
 {
     while (1) {
         char message[32];
-        /* do some measurements */
+        /* TODO: do some measurements */
 
-        /* prepare the message to send */
+        /* TODO: prepare the message to send */
 
         /* send the LoRaWAN message */
         semtech_loramac_send(&loramac, (uint8_t *)message, strlen(message));
@@ -49,7 +49,7 @@ static void sender(void)
 
 int main(void)
 {
-    /* initialize the sensor */
+    /* TODO: initialize the sensor */
 
     /* initialize the loramac stack */
     semtech_loramac_init(&loramac);
