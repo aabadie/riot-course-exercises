@@ -1,6 +1,15 @@
 ## Write an application with a basic shell
 
-### Build an run a basic application with a shell
+### Introduction
+
+In this exercise, we propose to discover the ways proposed by RIOT to add a
+shell functionnality to a RIOT application.
+You will first add existing shell commands by adding required modules to an
+application and after you will write your own shell command.
+
+### Exercise
+
+#### Build an run a basic application with a shell
 
 1. Go into the `~/riot-course/exercises/getting-started/shell` application
   directory and edit the `Makefile`
@@ -36,7 +45,7 @@ Command              Description
 
 Your application runs on native with an empty shell: no commands are available.
 
-### Add commands to the shell
+#### Add commands to the shell
 
 To add shell commands, there are 3 cases:
 
