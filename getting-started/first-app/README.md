@@ -82,7 +82,7 @@ Building application "first-app" for "b-l072z-lrwan1" with MCU "stm32l0".
   <br><br>_**Important note:**_ if you use a node on IoT-LAB, you need to also
   pass to the `make` command the `IOTLAB_NODE` variable with the correct node
   assigned to it.<br>
-  __Example:__ `IOTLAB_NODE=st-lrwan1-10.iot-lab.info`.
+  __Example:__ `IOTLAB_NODE=st-lrwan1-10.saclay.iot-lab.info`.
 
   - Use **term** target to open a serial terminal on the board:
   ```sh
@@ -115,3 +115,6 @@ Type '/exit' to exit.
 INFO # main(): This is RIOT! (Version: vm-riot)
 INFO # My first RIOT application
 ```
+
+Now go back to the next section in the
+[getting-started slides](https://aabadie.github.io/riot-course/slides/02-getting-started/#11).
