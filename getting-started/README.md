@@ -8,4 +8,3 @@ Follow the README of each exercise (in this order):
 2. [Add shell commands](shell)
 3. [Toggle LEDs with a shell command](led)
 4. [Read sensor values with shell commands](sensor)
-
