@@ -3,17 +3,18 @@
 # Copyright (c) 2018 Inria
 
 # Import required modules
+import os.path
 import json
 import base64
 import paho.mqtt.client as mqtt
 
 # Defines global variables
-USERNAME = 'captronic-workshop'
-PASSWORD = ''
-DEVICE_ID = 'captronic-node'
+USERNAME = '<your application id>'
+PASSWORD = '<your application access key>'
+DEVICE_ID = '<your node>'
 
 TTN_BROKER_ADDR = 'eu.thethings.network'
-TTN_BROKER_PORT = 1883
+TTN_BROKER_PORT = 8883
 
 SUBSCRIBE_TOPIC = '{}/devices/{}/up'.format(USERNAME, DEVICE_ID)
 PUBLISH_TOPIC = '{}/devices/{}/down'.format(USERNAME, DEVICE_ID)
@@ -53,6 +54,8 @@ def on_message(client, userdata, msg):
 def start():
     """Create the client and connect it to the broker."""
     client = mqtt.Client()
+    client.tls_set(keyfile=os.path.join(os.path.dirname(__file__),
+                                        'mqtt-ca.pem'))
     client.username_pw_set(USERNAME, password=PASSWORD)
     client.on_connect = on_connect
     client.on_message = on_message

@@ -14,7 +14,7 @@ from the LoRaWAN network
 - **Optional**: Use the TTN MQTT broker to send and receive data from
   your node. Check the appendix below.
 
-## Appendix: Using the MQTT API
+## Appendix 1: Using the MQTT API
 
 - Follow the MQTT quick start in TTN at
   `https://www.thethingsnetwork.org/docs/applications/mqtt/quick-start.html`
@@ -24,3 +24,7 @@ _TIP_: base64 payload can be decoded with the following command:
 ```sh
 `$ base64 -d <<< dGVzdA==`
 ```
+
+## Appendix 2: Retrieve MQTT data from a custom script
+
+
