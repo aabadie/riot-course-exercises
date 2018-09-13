@@ -21,5 +21,6 @@ integration in TTN.
   `https://www.thethingsnetwork.org/docs/applications/cayenne/`
 
 _TIP_: Reuse parts from `~/RIOT/tests/pkg_cayenne-lpp`
+
 _TIP_: Check the available `cayenne-lpp` functions in
  `https://github.com/aabadie/cayenne-lpp/blob/master/cayenne_lpp.h`
