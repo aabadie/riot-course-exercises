@@ -4,6 +4,6 @@ BOARD ?= native
 
 RIOTBASE ?= $(CURDIR)/../../../RIOT
 
-# Add modules here
+# Add required modules here
 
 include $(RIOTBASE)/Makefile.include
