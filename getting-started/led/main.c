@@ -18,7 +18,7 @@ static const shell_command_t shell_commands[] = {
 
 int main(void)
 {
-    puts("LED toggle shell application");
+    puts("shell application that toggles on-board LEDs");
 
     char line_buf[SHELL_DEFAULT_BUFSIZE];
     shell_run(shell_commands, line_buf, SHELL_DEFAULT_BUFSIZE);
