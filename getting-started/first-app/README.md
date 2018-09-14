@@ -86,7 +86,7 @@ Building application "first-app" for "b-l072z-lrwan1" with MCU "stm32l0".
 
   - Use **term** target to open a serial terminal on the board:
   ```sh
-  $ make BOARD=b-l07Z-lrwan1 term
+  $ make BOARD=b-l072z-lrwan1 term
   ```
   **term** opens a serial terminal on the board (using pyterm by default). In the
   case of IoT-LAB, it opens a SSH tunnel to IoT-LAB and redirects the serial port
@@ -95,7 +95,7 @@ Building application "first-app" for "b-l072z-lrwan1" with MCU "stm32l0".
   - **In another terminal window**, use the **flash** target to program the
   board:
   ```
-  $ make BOARD=b-l07Z-lrwan1 flash
+  $ make BOARD=b-l072z-lrwan1 flash
   ```
   Now take a look at the message displayed by the RIOT application in the first
   serial terminal.
