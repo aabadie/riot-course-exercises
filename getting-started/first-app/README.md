@@ -79,10 +79,12 @@ Building application "first-app" for "b-l072z-lrwan1" with MCU "stm32l0".
   the ARM architecture
 
 3. Run the application on hardware.
-  <br><br>_**Important note:**_ if you use a node on IoT-LAB, you need to also
+  <br><br>_**Important notes:**_
+    - if you use a node on IoT-LAB, you need to also
   pass to the `make` command the `IOTLAB_NODE` variable with the correct node
   assigned to it.<br>
-  __Example:__ `IOTLAB_NODE=st-lrwan1-10.saclay.iot-lab.info`.
+  __Example:__ `IOTLAB_NODE=st-lrwan1-10.saclay.iot-lab.info`.<br>
+    - if you use a board on the table, simply plug it via USB to your computer.
 
   - Use **term** target to open a serial terminal on the board:
   ```sh

@@ -66,7 +66,8 @@ shell.
 
 6. Add shell handler functions for the 'temperature' and 'humidity' functions.
 You can start from the led application previously written in
-`~/riot-course/exercises/getting-started/led`
+`~/riot-course/exercises/getting-started/led` (there's a `.solution` directory
+containing a working code)
 
 7. Build and run the application for the B-L072Z-LRWAN1 board
 
