@@ -29,10 +29,17 @@ const char *message = "This is RIOT!";
 static void sender(void)
 {
     while (1) {
-        printf("Sending message: %s\n", message);
+        /* wait 20 secs */
+        xtimer_sleep(20);
 
         /* send the LoRaWAN message */
-        semtech_loramac_send(&loramac, (uint8_t *)message, strlen(message));
+        printf("Sending message: %s\n", message);
+        uint8_t ret = semtech_loramac_send(&loramac, (uint8_t *)message,
+                                           strlen(message));
+        if (ret != SEMTECH_LORAMAC_TX_OK) {
+            printf("Cannot send message '%s', ret code: %d\n", message, ret);
+            continue;
+        }
 
         /* wait for any potential received data */
         if (semtech_loramac_recv(&loramac) == SEMTECH_LORAMAC_DATA_RECEIVED) {
@@ -41,9 +48,6 @@ static void sender(void)
             printf("Data received: %s\n", (char *)loramac.rx_data.payload);
             }
         }
-
-        /* sleep for 20 secs */
-        xtimer_sleep(20);
     }
 
     /* this should never be reached */

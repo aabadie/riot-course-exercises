@@ -33,13 +33,12 @@ int main(void)
     /* TODO: start the OTAA join procedure */
 
     while (1) {
+        /* TODO: wait 20 secs */
+
+        /* TODO: send the LoRaWAN message (check return code!) */
         printf("Sending message: %s\n", message);
 
-        /* TODO: send the LoRaWAN message  */
-
         /* TODO: wait for any potentially received data */
-
-        /* TODO: sleep 20 secs */
     }
 
     return 0; /* should never be reached */

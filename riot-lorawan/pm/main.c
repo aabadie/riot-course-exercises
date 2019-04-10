@@ -59,10 +59,14 @@ static void sender(void)
         printf("Sending LPP data\n");
 
         /* send the LoRaWAN message */
-        semtech_loramac_send(&loramac, lpp.buffer, lpp.cursor);
-
-        /* wait for any potential received data */
-        semtech_loramac_recv(&loramac);
+        uint8_t ret = semtech_loramac_send(&loramac, lpp.buffer, lpp.cursor);
+        if (ret == SEMTECH_LORAMAC_TX_OK) {
+            /* wait for any potential received data */
+            semtech_loramac_recv(&loramac);
+        }
+        else {
+            printf("Cannot send lpp message, ret code: %d\n", ret);
+        }
 
         /* clear lpp buffer once done */
         cayenne_lpp_reset(&lpp);

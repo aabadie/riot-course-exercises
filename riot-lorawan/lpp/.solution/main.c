@@ -35,6 +35,9 @@ static const uint8_t appkey[LORAMAC_APPKEY_LEN] = { 0x00, 0x00, 0x00, 0x00, 0x00
 static void sender(void)
 {
     while (1) {
+        /* wait 20 secs */
+        xtimer_sleep(20);
+
         /* do some measurements */
         uint16_t humidity = 0;
         int16_t temperature = 0;
@@ -51,16 +54,17 @@ static void sender(void)
         printf("Sending LPP data\n");
 
         /* send the LoRaWAN message */
-        semtech_loramac_send(&loramac, lpp.buffer, lpp.cursor);
-
-        /* wait for any potential received data */
-        semtech_loramac_recv(&loramac);
+        uint8_t ret = semtech_loramac_send(&loramac, lpp.buffer, lpp.cursor);
+        if (ret == SEMTECH_LORAMAC_TX_OK) {
+            /* wait for any potential received data */
+            semtech_loramac_recv(&loramac);
+        }
+        else {
+            printf("Cannot send lpp message, ret code: %d\n", ret);
+        }
 
         /* clear buffer once done */
         cayenne_lpp_reset(&lpp);
-
-        /* sleep for 20 secs */
-        xtimer_sleep(20);
     }
 
     /* this should never be reached */

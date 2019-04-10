@@ -49,15 +49,20 @@ int main(void)
     puts("Join procedure succeeded");
 
     while (1) {
+        /* wait 20 secs */
+        xtimer_sleep(20);
+
+        /* send the LoRaWAN message */
         printf("Sending message: %s\n", message);
-        /* send the LoRaWAN message  */
-        semtech_loramac_send(&loramac, (uint8_t *)message, strlen(message));
+        uint8_t ret = semtech_loramac_send(&loramac, (uint8_t *)message,
+                                           strlen(message));
+        if (ret != SEMTECH_LORAMAC_TX_OK) {
+            printf("Cannot send message '%s', ret code: %d\n", message, ret);
+            continue;
+        }
 
         /* wait for any potentially received data */
         semtech_loramac_recv(&loramac);
-
-        /* sleep 20 secs */
-        xtimer_sleep(20);
     }
 
     return 0; /* should never be reached */

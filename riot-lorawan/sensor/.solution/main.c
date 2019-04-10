@@ -33,6 +33,9 @@ static void sender(void)
 {
     while (1) {
         char message[32];
+        /* sleep 20 secs */
+        xtimer_sleep(20);
+
         /* do some measurements */
         uint16_t humidity = 0;
         int16_t temperature = 0;
@@ -49,13 +52,15 @@ static void sender(void)
         printf("Sending data: %s\n", message);
 
         /* send the LoRaWAN message */
-        semtech_loramac_send(&loramac, (uint8_t *)message, strlen(message));
+        uint8_t ret = semtech_loramac_send(&loramac, (uint8_t *)message,
+                                           strlen(message));
+        if (ret != SEMTECH_LORAMAC_TX_OK) {
+            printf("Cannot send message '%s', ret code: %d\n", message, ret);
+            continue;
+        }
 
         /* wait for any potential received data */
         semtech_loramac_recv(&loramac);
-
-        /* sleep for 20 secs */
-        xtimer_sleep(20);
     }
 
     /* this should never be reached */
