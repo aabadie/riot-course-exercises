@@ -46,7 +46,6 @@ static void sender(void)
             /* print a message with the received data */
             loramac.rx_data.payload[loramac.rx_data.payload_len] = 0;
             printf("Data received: %s\n", (char *)loramac.rx_data.payload);
-            }
         }
     }
 
