@@ -25,6 +25,9 @@ in the loramac descriptor.
   `https://www.thethingsnetwork.org/docs/applications/mqtt/quick-start.html`
 - Publish data to your node and subscribe to uplink messages
 
+_TIP_: Use the mosquitto-clients command line tools to publish/subscribe to
+MQTT topics.
+
 _TIP_: base64 payload can be decoded with the following command:
 ```sh
 `$ base64 -d <<< dGVzdA==`
@@ -32,4 +35,11 @@ _TIP_: base64 payload can be decoded with the following command:
 
 ## Appendix 2: Retrieve MQTT data from a custom script
 
-
+- Edit the python script in the [script](../script) directory and replace
+`USERNAME`, `PASSWORD` and `DEVICE_ID` with your TTN information.
+- You can run the script with the following command:
+```
+$ python mqtt-client.py
+```
+- Modify the python script to make it send a downlink after each message
+reveived from the device.

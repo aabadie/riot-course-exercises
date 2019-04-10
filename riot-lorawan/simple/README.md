@@ -16,6 +16,7 @@ Write an application that periodically sends data to a LoRaWAN network.
 _TIP_: In the `Payload formats > Payload format` of your application console,
 select the `Custom` payload format and in the `Decoder` text edit, add the
 following decoding javascript function:
+
 ```js
 function Decoder(bytes, port)
 {
@@ -29,6 +30,6 @@ decoded.message = message;
 return decoded;
 }
 ```
-Thanks to this, each data sent by node, visible in the node web console
-under `Devices > <device_id> > Data, will be displayed in a human readable
-format.
+
+Thanks to this, each data sent by the device, visible in the device web console
+under `Devices > <device_id> > Data, is displayed in a human readable format.

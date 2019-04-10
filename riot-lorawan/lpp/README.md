@@ -12,8 +12,8 @@ integration in TTN.
   An example of usage of Cayenne LPP format is available in this
   [RIOT test application](https://github.com/RIOT-OS/RIOT/tree/master/tests/pkg_cayenne-lpp)
 - Add the Cayenne integration to your TTN application under
-  `Integrations> add integration`.
-- Load the Cayenne LPP payload format under
+  `Integrations> add integration`, and follow the instructions for Cayenne.
+- Select the Cayenne LPP payload format under
   `Payload formats> Payload format`. Check the received data in
   the TTN dashboard.
 - **Optional**: Display the data in the `mydevices.com` dashboard.
