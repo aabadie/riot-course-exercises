@@ -25,20 +25,20 @@ structure of the application.
    that it's a regular Linux process.
 
 4. Run the application:
-   - by calling it directly
-   - using the **term** target of `make`
-   ```
-   $ make term
-   .../getting-started/first-app/bin/native/example.elf
-   RIOT native interrupts/signals initialized.
-   LED_RED_OFF
-   LED_GREEN_ON
-   RIOT native board initialized.
-   RIOT native hardware initialization complete.
+  - by calling it directly
+  - using the **term** target of `make`
+  ```
+  $ make term
+  .../getting-started/first-app/bin/native/example.elf
+  RIOT native interrupts/signals initialized.
+  LED_RED_OFF
+  LED_GREEN_ON
+  RIOT native board initialized.
+  RIOT native hardware initialization complete.
 
-   main(): This is RIOT! (Version: vm-riot)
-   My first RIOT application
-   ```
+  main(): This is RIOT! (Version: vm-riot)
+  My first RIOT application
+  ```
 
 ### Build and run the application on a specific hardware
 
