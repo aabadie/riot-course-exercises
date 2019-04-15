@@ -91,3 +91,9 @@ See [shell-basic-native README](https://github.com/aabadie/riot-course-exercises
   Success: sent 11 byte(s) to [fe80::44bc:5fff:fe34:78a5]:8888
   ```
   You should see the message printed in the console running netcat on Linux!
+
+**_TIP:_** You can use Tshark to monitor UDP packets sent on the
+different `tap` interfaces while using the `udp` command. For example, to
+monitor udp packet on port 8888 on interface `tap0`, use:
+
+  $ sudo tshark -i tap0 -f "udp port 8888"

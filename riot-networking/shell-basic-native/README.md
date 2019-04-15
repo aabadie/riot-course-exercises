@@ -99,3 +99,9 @@ interface created (use `tap0` and `tap1`):
   64 bytes from fe80::a046:e0ff:fee5:74f1%tapbr0: icmp_seq=1 ttl=64 time=0.293 ms
   64 bytes from fe80::a046:e0ff:fee5:74f1%tapbr0: icmp_seq=2 ttl=64 time=0.548 ms
   ```
+
+**_TIP:_** You can use Tshark to monitor ICMPv6 packets exchanged on the
+different `tap` interfaces while using the `ping6` command. For example, to
+monitor ICMPv6 echo/reply on `tap0`, use:
+
+  $ sudo tshark -i tap0 -Y icmpv6
