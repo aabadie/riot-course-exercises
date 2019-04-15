@@ -5,7 +5,7 @@ using the existing `gnrc_networking` example.
 You will perform basic IPv6 communication between 2 native instances on
 your local computer.
 
-## Prepare the 2 native instances
+## Prepare the network on your Linux host
 
 1. Configure a network bridge with 2 virtual interfaces (`tap`) with the
    following command (user password is user):
@@ -44,13 +44,15 @@ your local computer.
           TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
   ```
 
-3. Build the `gnrc_networking` example application for native:
+## Start 2 native instances
+
+1. Build the `gnrc_networking` example application for native:
 
   ```sh
   $ make -C ~/riot-course/RIOT/examples/gnrc_networking all
   ```
 
-4. In separate terminals, start 2 native instances of RIOT on each `tap`
+2. In separate terminals, start 2 native instances of RIOT on each `tap`
 interface created (use `tap0` and `tap1`):
 
   ```sh
