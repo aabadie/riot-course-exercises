@@ -3,8 +3,8 @@
 # name of your application
 APPLICATION = gcoap_example
 
-# If no BOARD is found in the environment, use this default:
-BOARD ?= native
+# use iotlab-m3:
+BOARD = iotlab-m3
 
 # This has to be the absolute path to the RIOT base directory:
 RIOTBASE ?= $(CURDIR)/../../../../RIOT
@@ -21,6 +21,8 @@ USEMODULE += gnrc_ipv6_default
 USEMODULE += gcoap
 
 # Required by coap server value handler
+USEMODULE += lps331ap
+
 USEMODULE += fmt
 
 # include this for printing IP addresses

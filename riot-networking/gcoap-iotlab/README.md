@@ -5,17 +5,6 @@
 In this exercise, we propose to expose different kind of CoAP resources,
 accessible via GET, PUT and POST requests.
 
-### Exercise
-
-1. Go into the `~/riot-course/exercises/riot-networking/gcoap` application
-  directory
-
-2. Add the `gcoap` and `fmt` modules dependency to the application `Makefile`:
-  ```mk
-  USEMODULE += gcoap
-  USEMODULE += fmt
-  ```
-
 
 
 Now move to the next section

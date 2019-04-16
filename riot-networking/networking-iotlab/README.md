@@ -1,4 +1,4 @@
-## RIOT networking on hardware
+## RIOT networking on real hardware
 
 ### Introduction
 
