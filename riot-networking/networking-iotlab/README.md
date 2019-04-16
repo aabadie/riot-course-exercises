@@ -187,3 +187,6 @@ round-trip min/avg/max = 6.348/6.668/7.308 ms
 Similar to the `gnrc_networking` application, you can test the applications
 written in [sock-udp](../sock-udp), [posix-udp](../posix-udp)
 and [gcoap](../gcoap) exercises on the 2 boards in your experiment.
+
+Now move to the next exercises in FIT IoT-LAB
+[networking slides](https://aabadie.github.io/riot-course/slides/04-networking-in-riot/#28).

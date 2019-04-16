@@ -102,3 +102,6 @@ different `tap` interfaces while using the `coap` command. For example, to
 monitor CoAP requests on interface `tap0`, use:
 
   $ sudo tshark -i tap0 -f "udp port 5683"
+
+Now move to the next section
+[networking slides](https://aabadie.github.io/riot-course/slides/04-networking-in-riot/#22).
