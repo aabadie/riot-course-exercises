@@ -107,3 +107,6 @@ different `tap` interfaces while using the `ping6` command. For example, to
 monitor ICMPv6 echo/reply on `tap0`, use:
 
   $ sudo tshark -i tap0 -Y icmpv6
+
+You can move the
+[next exercise](https://github.com/aabadie/riot-course-exercises/tree/master/riot-networking/shell-udp-native).

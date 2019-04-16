@@ -98,3 +98,6 @@ different `tap` interfaces while using the `udp` command. For example, to
 monitor udp packet on port 8888 on interface `tap0`, use:
 
   $ sudo tshark -i tap0 -f "udp port 8888"
+
+Now move to the next section in the
+[networking slides](https://aabadie.github.io/riot-course/slides/04-networking-in-riot/#12).
