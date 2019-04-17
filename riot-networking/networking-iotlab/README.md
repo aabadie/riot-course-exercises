@@ -30,6 +30,11 @@ You are now ready to use RIOT on the FIT-IoT-LAB testbed
 
 ### Setup an experiment on FIT IoT-LAB
 
+- Stop any running experiment you may have (use `-i` if you have multiple
+  experiments already running):
+
+      $ iotlab-experiment stop
+
 - Book 2 iotlab-m3 boards. You can use Saclay, Paris, Lille, Strasbourg or
   Grenoble sites:
 

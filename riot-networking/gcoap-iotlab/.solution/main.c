@@ -84,6 +84,8 @@ int main(void)
     }
     lpsxxx_enable(&sensor);
 
+    xtimer_sleep(2);
+
     /* print network addresses */
     puts("Configured network interfaces:");
     _gnrc_netif_config(0, NULL);
