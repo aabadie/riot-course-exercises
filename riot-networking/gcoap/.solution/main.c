@@ -26,40 +26,6 @@ static gcoap_listener_t _listener = {
     NULL
 };
 
-static ssize_t _value_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, void *ctx)
-{
-    (void)ctx;
-
-    /* read coap method type in packet */
-    unsigned method_flag = coap_method2flag(coap_get_code_detail(pdu));
-
-    switch(method_flag) {
-        case COAP_GET:
-            gcoap_resp_init(pdu, buf, len, COAP_CODE_CONTENT);
-            coap_opt_add_format(pdu, COAP_FORMAT_TEXT);
-            size_t resp_len = coap_opt_finish(pdu, COAP_OPT_FINISH_PAYLOAD);
-
-            /* write the response buffer with the request count value */
-            resp_len += fmt_u16_dec((char *)pdu->payload, _value);
-            return resp_len;
-
-        case COAP_PUT:
-            /* convert the payload to an integer and update the internal
-               value */
-            if (pdu->payload_len <= 5) {
-                char payload[6] = { 0 };
-                memcpy(payload, (char *)pdu->payload, pdu->payload_len);
-                _value = (uint16_t)strtoul(payload, NULL, 10);
-                return gcoap_response(pdu, buf, len, COAP_CODE_CHANGED);
-            }
-            else {
-                return gcoap_response(pdu, buf, len, COAP_CODE_BAD_REQUEST);
-            }
-    }
-
-    return 0;
-}
-
 static ssize_t _riot_board_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, void *ctx)
 {
     (void)ctx;
@@ -94,6 +60,41 @@ static ssize_t _riot_cpu_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, void
         puts("gcoap: msg buffer too small");
         return gcoap_response(pdu, buf, len, COAP_CODE_INTERNAL_SERVER_ERROR);
     }
+}
+
+static ssize_t _value_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, void *ctx)
+{
+    (void)ctx;
+
+    /* read coap method type in packet */
+    unsigned method_flag = coap_method2flag(coap_get_code_detail(pdu));
+
+    switch(method_flag) {
+        case COAP_GET:
+            gcoap_resp_init(pdu, buf, len, COAP_CODE_CONTENT);
+            coap_opt_add_format(pdu, COAP_FORMAT_TEXT);
+            size_t resp_len = coap_opt_finish(pdu, COAP_OPT_FINISH_PAYLOAD);
+
+            /* write the response buffer with the request count value */
+            resp_len += fmt_u16_dec((char *)pdu->payload, _value);
+            return resp_len;
+
+        case COAP_PUT:
+        case COAP_POST:
+            /* convert the payload to an integer and update the internal
+               value */
+            if (pdu->payload_len <= 5) {
+                char payload[6] = { 0 };
+                memcpy(payload, (char *)pdu->payload, pdu->payload_len);
+                _value = (uint16_t)strtoul(payload, NULL, 10);
+                return gcoap_response(pdu, buf, len, COAP_CODE_CHANGED);
+            }
+            else {
+                return gcoap_response(pdu, buf, len, COAP_CODE_BAD_REQUEST);
+            }
+    }
+
+    return 0;
 }
 
 int main(void)
