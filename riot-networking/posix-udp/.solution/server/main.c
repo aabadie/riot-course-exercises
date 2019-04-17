@@ -10,6 +10,8 @@ extern int _gnrc_netif_config(int argc, char **argv);
 
 static char server_buffer[128];
 
+#define SERVER_MESSAGE "Hello client"
+
 int main(void)
 {
     /* print network addresses */
@@ -50,7 +52,7 @@ int main(void)
         else {
             printf("Message received: ");
             puts(server_buffer);
-            sendto(server_socket, "Hello client", sizeof("Hello client"), 0,
+            sendto(server_socket, SERVER_MESSAGE, sizeof(SERVER_MESSAGE), 0,
                    (struct sockaddr *)&src, sizeof(src));
         }
     }

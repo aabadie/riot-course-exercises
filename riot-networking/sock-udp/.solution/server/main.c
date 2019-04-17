@@ -28,7 +28,7 @@ int main(void)
         if ((res = sock_udp_recv(&sock, buf, sizeof(buf), SOCK_NO_TIMEOUT,
                                  &remote)) >= 0) {
 
-            printf("Received a message: %s\n", (char*)buf);
+            printf("Message received: %s\n", (char*)buf);
 
             if (sock_udp_send(&sock, buf, res, &remote) < 0) {
                 puts("Error sending reply");
