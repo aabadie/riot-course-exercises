@@ -42,7 +42,16 @@ static ssize_t _value_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, void *c
 {
     (void)ctx;
 
-    /* Implement the value GET, PUT/POST handler */
+    /* read coap method flag in the packet */
+
+    switch(method_flag) {
+        case COAP_GET:
+            /* implement the GET method */
+
+        case COAP_PUT:
+        case COAP_POST:
+            /* implement PUT/POST methods */
+    }
 
     return 0;
 }
