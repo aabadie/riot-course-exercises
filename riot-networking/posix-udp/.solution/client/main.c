@@ -32,6 +32,7 @@ int main(void)
     while (1) {
         sendto(s, CLIENT_MESSAGE, strlen(CLIENT_MESSAGE), 0,
                    (struct sockaddr *)&dst, sizeof(dst));
+
         xtimer_sleep(1);
     }
 

@@ -12,17 +12,12 @@
 
 int main(void)
 {
-    struct sockaddr_in6 dst;
-    int s;
-    dst.sin6_family = AF_INET6;
+    /* Create the socket */
 
-    /* parse destination address */
-
-    /* create the socket */
+    /* configure the destination address */
 
     while (1) {
         /* send CLIENT_MESSAGE to the server */
-
 
         xtimer_sleep(1);
     }
