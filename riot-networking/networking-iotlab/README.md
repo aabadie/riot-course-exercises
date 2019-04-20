@@ -8,25 +8,9 @@ exercises, but this time, remotely, on real boards provided by the FIT IoT-LAB.
 
 ### Prerequisites
 
-- First you need to create an account on IoT-LAB at
-  [https://www.iot-lab.info/testbed/#/signup](https://www.iot-lab.info/testbed/#/signup)
+Follow the riot-course [FIT IoT-LAB prerequites](https://aabadie.github.io/riot-course/slides/prerequisites/#5).
 
-- To remotely flash and open a terminal session on IoT-LAB, you'll need to
-  install the IoT-LAB command line tools using `pip`:
-  ```sh
-  $ sudo apt-get install python-pip
-  $ pip install iotlabcli --pre -U
-  ```
-
-- Once installed, register your IoT-LAB login/password locally using:
-  ```sh
-  $ iotlab-auth -u <your login>
-  ```
-
-- You also need to copy your SSH on the testbed, follow this
-[tutorial](https://www.iot-lab.info/tutorials/ssh-access/) to do this.
-
-You are now ready to use RIOT on the FIT-IoT-LAB testbed
+After that, you are ready to use RIOT on the FIT-IoT-LAB testbed
 
 ### Setup an experiment on FIT IoT-LAB
 
