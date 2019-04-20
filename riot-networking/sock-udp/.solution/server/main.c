@@ -21,7 +21,6 @@ int main(void)
         return 1;
     }
 
-
     while (1) {
         sock_udp_ep_t remote;
         ssize_t res;

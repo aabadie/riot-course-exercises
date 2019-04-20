@@ -2,7 +2,7 @@ APPLICATION = sock_server
 
 BOARD ?= native
 
-RIOTBASE ?= $(CURDIR)/../../../../../RIOT
+RIOTBASE ?= $(CURDIR)/../../../../RIOT
 
 SERVER_PORT ?= 8888
 

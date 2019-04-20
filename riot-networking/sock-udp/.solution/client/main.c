@@ -20,6 +20,7 @@ int main(void)
     }
 
     sock_udp_ep_t remote = { .family = AF_INET6  };
+    remote.port = SERVER_PORT;
 
     /* Convert server address from string to ipv6_addr_t */
     if (ipv6_addr_from_str((ipv6_addr_t *)&remote.addr.ipv6, SERVER_ADDR) == NULL) {
@@ -29,15 +30,14 @@ int main(void)
     }
 
     while (1) {
-        ssize_t res;
-        remote.port = SERVER_PORT;
-
         if (sock_udp_send(&sock, CLIENT_MESSAGE, sizeof(CLIENT_MESSAGE),
                           &remote) < 0) {
             puts("Error sending message");
             sock_udp_close(&sock);
             return 1;
         }
+
+        ssize_t res;
         if ((res = sock_udp_recv(&sock, buf, sizeof(buf), 1 * US_PER_SEC,
                                 NULL)) < 0) {
             if (res == -ETIMEDOUT) {
