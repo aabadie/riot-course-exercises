@@ -6,7 +6,7 @@ native instance.
 
 ## Prepare the network on your Linux host (if not already done)
 
-[shell-basic-native README](https://github.com/aabadie/riot-course-exercises/tree/master/riot-networking/shell-basic-native#)
+[Prepare the network](https://github.com/aabadie/riot-course-exercises/blob/master/riot-networking/shell-basic-native/README.md#prepare-the-network-on-your-linux-host) (if not already done)
 
 ## Start 2 native instances
 

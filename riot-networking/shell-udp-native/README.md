@@ -6,8 +6,8 @@ native instance.
 
 ## Start 2 native instances
 
-1. [shell-basic-native README](https://github.com/aabadie/riot-course-exercises/tree/master/riot-networking/shell-basic-native#) (if not already done)
-2. [shell-basic-native README](https://github.com/aabadie/riot-course-exercises/tree/master/riot-networking/shell-basic-native#)
+1. [Prepare the network](https://github.com/aabadie/riot-course-exercises/blob/master/riot-networking/shell-basic-native/README.md#prepare-the-network-on-your-linux-host) (if not already done)
+2. [Start the 2 instances](https://github.com/aabadie/riot-course-exercises/blob/master/riot-networking/shell-basic-native/README.md#start-2-native-instances)
 
 ## Exchange UDP packets between the RIOT instances
 

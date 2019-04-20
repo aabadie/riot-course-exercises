@@ -8,7 +8,7 @@ exercises, but this time, remotely, on real boards provided by the FIT IoT-LAB.
 
 ### Prerequisites
 
-Follow the riot-course [FIT IoT-LAB prerequites](https://aabadie.github.io/riot-course/slides/prerequisites/#5).
+Follow the riot-course [FIT IoT-LAB prerequites](https://aabadie.github.io/riot-course/slides/prerequisites/#4).
 
 After that, you are ready to use RIOT on the FIT-IoT-LAB testbed
 

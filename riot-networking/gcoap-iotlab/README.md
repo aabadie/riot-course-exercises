@@ -10,8 +10,8 @@ we'll use it to read the temperature and atmospheric pressure.
 
 ### Prerequisites
 
-1. [Configure you FIT IoT-LAB access](https://github.com/aabadie/riot-course-exercises/tree/master/riot-networking/networking-iotlab#) (if not already done)
-2. [Setup an experiment](https://github.com/aabadie/riot-course-exercises/tree/master/riot-networking/networking-iotlab#)
+1. Follow the riot-course [FIT IoT-LAB prerequites](https://aabadie.github.io/riot-course/slides/prerequisites/#4) (if not done already)
+2. [Setup an experiment](https://github.com/aabadie/riot-course-exercises/tree/master/riot-networking/networking-iotlab#setup-an-experiment-on-fit-iot-lab)
 
 In the rest of the exercice, we assume that you have booked 2 `iotlab-m3` boards
 on the `paris` site:
