@@ -12,8 +12,15 @@
 
 int main(void)
 {
+    /* Create the socket */
+    int s = socket(AF_INET6, SOCK_DGRAM, IPPROTO_UDP);
+    if (s < 0) {
+        puts("error initializing socket");
+        return 1;
+    }
+
+    /* configure the destination address */
     struct sockaddr_in6 dst;
-    int s;
     dst.sin6_family = AF_INET6;
 
     /* parse destination address */
@@ -21,11 +28,6 @@ int main(void)
 
     /* parse port */
     dst.sin6_port = htons(SERVER_PORT);
-    s = socket(AF_INET6, SOCK_DGRAM, IPPROTO_UDP);
-    if (s < 0) {
-        puts("error initializing socket");
-        return 1;
-    }
 
     while (1) {
         sendto(s, CLIENT_MESSAGE, strlen(CLIENT_MESSAGE), 0,

@@ -20,6 +20,8 @@ int main(void)
 
     /* Create the socket */
 
+    /* Configure the server address */
+
     /* Bind the socket to the local address */
 
     while (1) {

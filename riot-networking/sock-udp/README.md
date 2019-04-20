@@ -20,7 +20,6 @@ Both applications will run as RIOT native instances.
 
   - Go into the `~/riot-course/exercises/riot-networking/sock-udp/server` application
     directory
-
   - Add the low-level driver modules dependencies to the application `Makefile`:
     ```mk
     USEMODULE += gnrc_netdev_default
@@ -59,7 +58,6 @@ Both applications will run as RIOT native instances.
 
   - Go into the `~/riot-course/exercises/riot-networking/sock-udp/client` application
     directory
-
   - Add the low-level driver modules dependencies to the application `Makefile`:
     ```mk
     USEMODULE += gnrc_netdev_default

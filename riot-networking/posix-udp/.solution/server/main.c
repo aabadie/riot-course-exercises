@@ -18,18 +18,17 @@ int main(void)
     puts("Configured network interfaces:");
     _gnrc_netif_config(0, NULL);
 
-    struct sockaddr_in6 server_addr;
     int server_socket = socket(AF_INET6, SOCK_DGRAM, IPPROTO_UDP);
-
-    server_addr.sin6_family = AF_INET6;
-    memset(&server_addr.sin6_addr, 0, sizeof(server_addr.sin6_addr));
-    server_addr.sin6_port = htons(SERVER_PORT);
-
     if (server_socket < 0) {
         puts("error initializing socket");
         server_socket = 0;
         return 1;
     }
+
+    struct sockaddr_in6 server_addr;
+    server_addr.sin6_family = AF_INET6;
+    memset(&server_addr.sin6_addr, 0, sizeof(server_addr.sin6_addr));
+    server_addr.sin6_port = htons(SERVER_PORT);
 
     if (bind(server_socket, (struct sockaddr *)&server_addr,
              sizeof(server_addr)) < 0) {
