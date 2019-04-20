@@ -2,7 +2,7 @@ APPLICATION = posix_client
 
 BOARD ?= native
 
-RIOTBASE ?= $(CURDIR)/../../../../../RIOT
+RIOTBASE ?= $(CURDIR)/../../../../RIOT
 
 SERVER_PORT ?= 8888
 SERVER_ADDR ?= fe80::1

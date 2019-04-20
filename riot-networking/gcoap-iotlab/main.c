@@ -45,6 +45,7 @@ static ssize_t _riot_temperature_handler(coap_pkt_t *pdu, uint8_t *buf,
 
 int main(void)
 {
+    xtimer_sleep(2);
     /* print network addresses */
     puts("Configured network interfaces:");
     _gnrc_netif_config(0, NULL);

@@ -3,7 +3,7 @@ APPLICATION = gcoap_iotlab
 # use iotlab-m3:
 BOARD = iotlab-m3
 
-RIOTBASE ?= $(CURDIR)/../../../../RIOT
+RIOTBASE ?= $(CURDIR)/../../../RIOT
 
 # Import radio driver module
 USEMODULE += gnrc_netdev_default
