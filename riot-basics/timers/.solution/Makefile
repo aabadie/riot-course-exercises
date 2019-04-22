@@ -4,7 +4,7 @@ BOARD ?= b-l072z-lrwan1
 
 USEMODULE += xtimer
 
-RIOTBASE ?= $(CURDIR)/../../../RIOT
+RIOTBASE ?= $(CURDIR)/../../../../RIOT
 
 DEVELHELP ?= 1
 
