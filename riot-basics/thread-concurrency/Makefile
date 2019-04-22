@@ -2,9 +2,7 @@ APPLICATION=thread-safe-ipc
 
 BOARD ?= native
 
-USEMODULE += shell
-USEMODULE += shell_commands
-USEMODULE += ps
+USEMODULE += xtimer
 
 RIOTBASE ?= $(CURDIR)/../../../RIOT
 
