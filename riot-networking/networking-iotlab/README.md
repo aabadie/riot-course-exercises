@@ -177,5 +177,5 @@ Similar to the `gnrc_networking` application, you can test the applications
 written in [sock-udp](../sock-udp), [posix-udp](../posix-udp)
 and [gcoap](../gcoap) exercises on the 2 boards in your experiment.
 
-Now move to the next exercises in FIT IoT-LAB
+Now let's continue with the
 [networking slides](https://aabadie.github.io/riot-course/slides/04-networking-in-riot/#28).

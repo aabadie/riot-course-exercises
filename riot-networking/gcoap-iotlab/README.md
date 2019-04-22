@@ -117,5 +117,5 @@ On the VM, you can access it at `~/riot-course/RIOT/examples/gcoap`
       gcoap: response Success, code 2.05, 7 bytes
       1013hPa
 
-Now move to the next section
+Now let's continue with the
 [networking slides](https://aabadie.github.io/riot-course/slides/04-networking-in-riot/#25).

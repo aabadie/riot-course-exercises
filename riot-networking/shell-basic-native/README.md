@@ -108,5 +108,5 @@ monitor ICMPv6 echo/reply on `tap0`, use:
 
   $ sudo tshark -i tap0 -Y icmpv6
 
-You can move the
+You can move to the
 [next exercise](https://github.com/aabadie/riot-course-exercises/tree/master/riot-networking/shell-udp-native).

@@ -91,3 +91,6 @@ $ make BOARD=b-l072z-lrwan1 -C ~/riot-course/exercices/riot-basics/first-thread 
 ```
 
 _Note:_ If you use hardware on FIT IoT-LAB, add `IOTLAB_NODE=auto-ssh` to `make`.
+
+Now let's continue in the
+[riot-basics slides](https://aabadie.github.io/riot-course/slides/03-riot-basics/#12).

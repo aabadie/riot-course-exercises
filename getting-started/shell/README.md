@@ -107,5 +107,5 @@ $ make BOARD=b-l072z-lrwan1 flash term
 
 It works exactly the same on hardware without modifications :)
 
-Now go back to the next section in the
+Now let's continue with the
 [getting-started slides](https://aabadie.github.io/riot-course/slides/02-getting-started/#14).

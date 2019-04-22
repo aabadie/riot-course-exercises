@@ -140,5 +140,5 @@ Both applications will run as RIOT native instances.
   Message received: Hello Server
   ```
 
-Now let's continue to the next section
+Now let's continue with the
 [networking slides](https://aabadie.github.io/riot-course/slides/04-networking-in-riot/#17).

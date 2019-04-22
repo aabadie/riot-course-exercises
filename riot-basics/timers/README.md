@@ -23,3 +23,6 @@ other board with at least 3 LEDs could be used.
 - Repeat this for LED1 and LED2.
 
 - Build and flash the application, and see the LEDs blinking!
+
+Now let's continue in the
+[riot-basics slides](https://aabadie.github.io/riot-course/slides/03-riot-basics/#22).

@@ -79,3 +79,6 @@ __Example:__ `IOTLAB_NODE=st-lrwan1-10.saclay.iot-lab.info`.
 ```sh
 $ make BOARD=b-l072z-lrwan1 flash term
 ```
+
+Now let's continue with the
+[getting-started slides](https://aabadie.github.io/riot-course/slides/02-getting-started/#18).

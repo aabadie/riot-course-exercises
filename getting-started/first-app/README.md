@@ -118,5 +118,5 @@ INFO # main(): This is RIOT! (Version: vm-riot)
 INFO # My first RIOT application
 ```
 
-Now go back to the next section in the
+Now let's continue with the
 [getting-started slides](https://aabadie.github.io/riot-course/slides/02-getting-started/#11).

@@ -122,5 +122,5 @@ package clients.
   10
   ```
 
-Now let's continue to the next section
+Now let's continue with the
 [networking slides](https://aabadie.github.io/riot-course/slides/04-networking-in-riot/#25).

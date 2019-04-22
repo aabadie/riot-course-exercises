@@ -1,4 +1,4 @@
-## Timers
+## GPIO
 
 ### Introduction
 
@@ -29,3 +29,6 @@ used to toggle an on-board LED.
   thread &#x21d2; it toggles the LED0 state
 
 _Note: we won't take care of the debounce issue_
+
+Now let's continue in the
+[riot-basics slides](https://aabadie.github.io/riot-course/slides/03-riot-basics/#28).

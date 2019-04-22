@@ -103,5 +103,5 @@ monitor CoAP requests on interface `tap0`, use:
 
   $ sudo tshark -i tap0 -f "udp port 5683"
 
-Now move to the next section
+Now let's continue with the
 [networking slides](https://aabadie.github.io/riot-course/slides/04-networking-in-riot/#22).
