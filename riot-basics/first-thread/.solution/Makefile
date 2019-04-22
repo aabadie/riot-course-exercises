@@ -2,9 +2,12 @@ APPLICATION=first-thread
 
 BOARD ?= native
 
-RIOTBASE ?= $(CURDIR)/../../../RIOT
+RIOTBASE ?= $(CURDIR)/../../../../RIOT
 
 # Add shell related modules here
+USEMODULE += shell
+USEMODULE += shell_commands
+USEMODULE += ps
 
 DEVELHELP ?= 1
 
