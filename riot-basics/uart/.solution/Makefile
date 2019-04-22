@@ -6,6 +6,6 @@ FEATURES_REQUIRED += periph_uart
 
 DEVELHELP ?= 1
 
-RIOTBASE ?= $(CURDIR)/../../../RIOT
+RIOTBASE ?= $(CURDIR)/../../../../RIOT
 
 include $(RIOTBASE)/Makefile.include
