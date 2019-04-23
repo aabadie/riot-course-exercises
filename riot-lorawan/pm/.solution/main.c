@@ -61,18 +61,7 @@ static void _prepare_next_alarm(void)
     rtc_get_time(&time);
     /* set initial alarm */
     time.tm_sec += PERIOD;
-    while (time.tm_sec > 60) {
-        time.tm_min++;
-        time.tm_sec -= 60;
-    }
-    while (time.tm_min > 60) {
-        time.tm_hour++;
-        time.tm_min -= 60;
-    }
-    while (time.tm_hour > 24) {
-        time.tm_mday++;
-        time.tm_hour -= 24;
-    }
+    mktime(&time);
     rtc_set_alarm(&time, rtc_cb, NULL);
 }
 
@@ -99,6 +88,7 @@ static void sender(void)
         printf("Sending LPP data\n");
 
         /* send the LoRaWAN message */
+        uint8_t ret = semtech_loramac_send(&loramac, lpp.buffer, lpp.cursor);
         if (ret == SEMTECH_LORAMAC_TX_OK) {
             /* wait for any potential received data */
             semtech_loramac_recv(&loramac);
