@@ -2,7 +2,7 @@ APPLICATION=shell
 
 BOARD ?= native
 
-RIOTBASE ?= $(CURDIR)/../../../RIOT
+RIOTBASE ?= $(CURDIR)/../../../../RIOT
 
 USEMODULE += shell
 USEMODULE += shell_commands
