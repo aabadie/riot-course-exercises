@@ -89,7 +89,7 @@ Both applications will run as RIOT native instances.
         return 1;
     }
     ```
-  - Implement the server side UDP echo:
+  - Implement the listening of the echo sent by the server:
     ```c
     sock_udp_ep_t remote;
     ssize_t res;
