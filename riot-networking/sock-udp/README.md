@@ -89,17 +89,21 @@ Both applications will run as RIOT native instances.
         return 1;
     }
     ```
+  - Implement sending CLIENT_MESSAGE to the server:
+    ```c
+    if (sock_udp_send(&sock, CLIENT_MESSAGE, sizeof(CLIENT_MESSAGE), &remote) < 0) {
+        puts("Error sending message");
+        sock_udp_close(&sock);
+        return 1;
+    }
+    ```
   - Implement the listening of the echo sent by the server:
     ```c
-    sock_udp_ep_t remote;
     ssize_t res;
     if ((res = sock_udp_recv(&sock, buf, sizeof(buf), SOCK_NO_TIMEOUT,
                              &remote)) >= 0) {
 
         printf("Message received: %s\n", (char*)buf);
-        if (sock_udp_send(&sock, buf, res, &remote) < 0) {
-            puts("Error sending reply");
-        }
     }
     ```
 
