@@ -25,11 +25,12 @@ the exercise, you will run this same application, unchanged, on real hardware.
   to add the 200ms delay. `US_PER_MS` macro is also useful for converting ms in
   us.
 
-- Implement the logic of the writer thread: every 100ms it will modify the
-  content of the buffer. Here we want to simmulate an action that takes time,
+- Implement the logic of the writer thread: it will modify the content of the
+  buffer and the wait 100ms before doing so again. Here we want to simulate an
+  action that takes time,
   so this should be done in 3 steps:
   - Write some content in the buffer (use `sprintf` or equivalent)
-  - Wait 500ms
+  - Wait 200ms
   - Write the end of the content in the buffer
   ```c
   size_t p = sprintf(data.buffer, "start: %"PRIu32"", xtimer_now().ticks32);

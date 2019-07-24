@@ -28,7 +28,7 @@ static void *thread_writer_handler(void *arg)
 {
     (void) arg;
 
-    /* Update content of buffer every 100ms, the content update takes 500ms */
+    /* Update content of buffer every 100ms, the content update takes 200ms */
 
     return NULL;
 }
