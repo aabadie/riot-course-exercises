@@ -37,7 +37,11 @@ package clients.
       NULL
   };
   ```
-5. Implement the riot board GET handler:
+5. Register the coap listener:
+  ```c
+  gcoap_register_listener(&_listener);
+  ```
+6. Implement the riot board GET handler:
   - Initialize the request response:
   ```c
   gcoap_resp_init(pdu, buf, len, COAP_CODE_CONTENT);
@@ -57,9 +61,9 @@ package clients.
       return gcoap_response(pdu, buf, len, COAP_CODE_INTERNAL_SERVER_ERROR);
   }
   ```
-6. Implement the riot cpu GET handler on the same principle as the riot board:
+7. Implement the riot cpu GET handler on the same principle as the riot board:
   use `RIOT_CPU` macro instead of `RIOT_BOARD`.
-7. Implement the `/value` GET, PUT/POST handler:
+8. Implement the `/value` GET, PUT/POST handler:
   - Read coap method flag in the packet:
   ```c
    unsigned method_flag = coap_method2flag(coap_get_code_detail(pdu));
@@ -85,7 +89,8 @@ package clients.
   else {
       return gcoap_response(pdu, buf, len, COAP_CODE_BAD_REQUEST);
   }
-8. Build and start the coap server application on `tap0`. Note the link-local
+  ```
+9. Build and start the coap server application on `tap0`. Note the link-local
   address of the server application:
   ```sh
   $ make -C ~/riot-course/exercises/riot-networking/gcoap
@@ -100,7 +105,7 @@ package clients.
   ```
   Here the link-local address of the CoAP server is **fe80::f09d:f4ff:fe58:14d4**.
   Keep the terminal open and the server application running.
-9. From the VM (or your computer), use `aiocoap-client` to send requests to the
+10. From the VM (or your computer), use `aiocoap-client` to send requests to the
   CoAP server (note the `%tapbr0` added at the end of the server link-local
   address):
   - Get the `/riot/board` and `/riot/cpu` resources:
