@@ -18,6 +18,11 @@ threads to print all characters received on the stdio.
 FEATURES_REQUIRED += periph_uart
 ```
 
+- Add the UART header file in your application:
+```c
+#include "periph/uart.h"
+```
+
 - Write an application with one thread, called `printer_thread`, that waits
   for incoming messages
 
