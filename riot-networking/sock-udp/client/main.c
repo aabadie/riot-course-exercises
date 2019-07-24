@@ -13,7 +13,7 @@ int main(void)
 {
     /* Create the local sock UDP endpoint */
 
-    /* declate the remote sock UDP endpoint and assign the IPv6 address
+    /* declare the remote sock UDP endpoint and assign the IPv6 address
        (link-local), based on SERVER_ADDR
        TIP: use ipv6_addr_from_str function to convert to an ipv6_addr_t
        */
