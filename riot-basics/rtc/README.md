@@ -9,7 +9,8 @@ In this exercise, we propose to experiment the RTC API.
 1. Go to `~/riot-course-exercises/riot-basics/rtc`
 
 2. Write an application that gets the current RTC time and print it to stdout
-   (Don't forget to the `periph_rtc` to the list of required features).
+   (Don't forget to add `periph_rtc` to the list of required features and to
+   include it in your application).
 
 3. Start one thread, called `blink_thread`, that waits for incoming messages.
    For each message, the thread turns on the LED1 during 1 seconds, then it
