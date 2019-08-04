@@ -18,6 +18,8 @@
 
 #include "periph/rtc.h"
 
+#define PERIOD  (5U)
+
 kernel_pid_t pid;
 static char stack[THREAD_STACKSIZE_MAIN];
 
@@ -45,7 +47,8 @@ static void *blink_thread(void *arg)
         rtc_get_time(&time);
         printf("Current time: %d:%d:%d\n",
                time.tm_hour, time.tm_min, time.tm_sec);
-        time.tm_sec += 5;
+        time.tm_sec += PERIOD;
+        mktime(&time);
 
         rtc_set_alarm(&time, rtc_alarm_cb, NULL);
     }
