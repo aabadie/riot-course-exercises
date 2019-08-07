@@ -14,7 +14,9 @@ for reducing power consumption (using STANDBY low power mode).
   CFLAGS += '-DPM_BLOCKER_INITIAL={ .val_u32 = 0x01010100 }'
   ```
 - in main.c, edit the EUIS and key for OTAA activation
-- Modify the sender thread so that it triggers a send only after an IPC
+- Modify the sender function to become a sender thread and start it at the end
+  of the main function
+- Modify the sender thread so that it triggers a lorawan send only after an IPC
   message (`msg_t` type) is received (e.g. use `msg_receive` at the beginning
   of the while loop)
 - After a LoRaWAN send, configure an RTC alarm 20s later and finally unlock the

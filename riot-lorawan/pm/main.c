@@ -21,6 +21,11 @@
 /* Messages are sent every 20s to respect the duty cycle on each channel */
 #define PERIOD              (20U)
 
+/* Sender thread parameters */
+#define SENDER_PRIO         (THREAD_PRIORITY_MAIN - 1)
+static kernel_pid_t sender_pid;
+static char sender_stack[THREAD_STACKSIZE_MAIN / 2];
+
 /* Declare globally the loramac descriptor */
 static semtech_loramac_t loramac;
 
@@ -120,8 +125,11 @@ int main(void)
 
     puts("Join procedure succeeded");
 
-    /* call the sender */
-    sender();
+    /* TODO: start the sender thread */
+
+    /* trigger the first send */
+    msg_t msg;
+    msg_send(&msg, sender_pid);
 
     return 0;
 }
