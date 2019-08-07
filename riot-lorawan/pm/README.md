@@ -13,6 +13,11 @@ for reducing power consumption (using STANDBY low power mode).
   ```
   CFLAGS += '-DPM_BLOCKER_INITIAL={ .val_u32 = 0x01010100 }'
   ```
+- Still in the application Makefile, add the required RTC and EEPROM features:
+  ```
+  FEATURES_REQUIRED += periph_rtc
+  FEATURES_REQUIRED += periph_eeprom
+  ```
 - in main.c, edit the EUIS and key for OTAA activation
 - Modify the sender function to become a sender thread and start it at the end
   of the main function

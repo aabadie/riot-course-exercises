@@ -16,6 +16,7 @@ USEPKG += semtech-loramac
 USEPKG += cayenne-lpp
 
 FEATURES_REQUIRED += periph_rtc
+FEATURES_REQUIRED += periph_eeprom
 
 DEVELHELP ?= 1
 

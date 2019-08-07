@@ -117,7 +117,7 @@ static void *sender(void *arg)
     }
 
     /* this should never be reached */
-    return;
+    return NULL;
 }
 
 int main(void)
