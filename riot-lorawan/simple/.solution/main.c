@@ -56,13 +56,9 @@ int main(void)
         printf("Sending message: %s\n", message);
         uint8_t ret = semtech_loramac_send(&loramac, (uint8_t *)message,
                                            strlen(message));
-        if (ret != SEMTECH_LORAMAC_TX_OK) {
+        if (ret != SEMTECH_LORAMAC_TX_DONE) {
             printf("Cannot send message '%s', ret code: %d\n", message, ret);
-            continue;
         }
-
-        /* wait for any potentially received data */
-        semtech_loramac_recv(&loramac);
     }
 
     return 0; /* should never be reached */

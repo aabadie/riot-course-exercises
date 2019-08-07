@@ -3,12 +3,14 @@
 ## Goal
 
 Write an application that prints a message when it receives a downlink
-from the LoRaWAN network
+from the LoRaWAN network.
 
 ## Instructions
 
-- Reuse [riot-lorawan/lpp](../lpp) application to print a message
-  when receiving a downlink from the LoRaWAN network.
+- Reuse the [riot-lorawan/lpp](../lpp) application as a starting point
+- Follow the
+  [package documentation](http://doc.riot-os.org/group__pkg__semtech-loramac.html)
+  to extend the application with receiving thread.
 - Send downlink messages to your node from the TTN network: go to
   `Devices> [your_device] > Downlinks`
 - **Optional**: Use the TTN MQTT broker to send and receive data from

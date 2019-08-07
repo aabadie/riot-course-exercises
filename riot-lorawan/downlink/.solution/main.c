@@ -8,6 +8,8 @@
 
 #include <string.h>
 
+#include "thread.h"
+
 #include "xtimer.h"
 
 #include "net/loramac.h"
@@ -26,6 +28,36 @@ static const uint8_t appkey[LORAMAC_APPKEY_LEN] = { 0x00, 0x00, 0x00, 0x00, 0x00
 /* The simple message to send */
 const char *message = "This is RIOT!";
 
+/* Implement the receiver thread */
+#define RECEIVER_MSG_QUEUE                          (4U)
+static msg_t _receiver_queue[RECEIVER_MSG_QUEUE];
+static char _receiver_stack[THREAD_STACKSIZE_DEFAULT];
+
+static void *receiver(void *arg)
+{
+    msg_init_queue(_receiver_queue, RECEIVER_MSG_QUEUE);
+
+    (void)arg;
+    while (1) {
+        /* blocks until something is received */
+        switch (semtech_loramac_recv(&loramac)) {
+            case SEMTECH_LORAMAC_RX_DATA:
+                loramac.rx_data.payload[loramac.rx_data.payload_len] = 0;
+                printf("Data received: %s, port: %d\n",
+                (char *)loramac.rx_data.payload, loramac.rx_data.port);
+                break;
+
+            case SEMTECH_LORAMAC_RX_CONFIRMED:
+                puts("Received ACK from network");
+                break;
+
+            default:
+                break;
+        }
+    }
+    return NULL;
+}
+
 static void sender(void)
 {
     while (1) {
@@ -36,16 +68,8 @@ static void sender(void)
         printf("Sending message: %s\n", message);
         uint8_t ret = semtech_loramac_send(&loramac, (uint8_t *)message,
                                            strlen(message));
-        if (ret != SEMTECH_LORAMAC_TX_OK) {
+        if (ret != SEMTECH_LORAMAC_TX_DONE) {
             printf("Cannot send message '%s', ret code: %d\n", message, ret);
-            continue;
-        }
-
-        /* wait for any potential received data */
-        if (semtech_loramac_recv(&loramac) == SEMTECH_LORAMAC_DATA_RECEIVED) {
-            /* print a message with the received data */
-            loramac.rx_data.payload[loramac.rx_data.payload_len] = 0;
-            printf("Data received: %s\n", (char *)loramac.rx_data.payload);
         }
     }
 
@@ -74,6 +98,10 @@ int main(void)
     }
 
     puts("Join procedure succeeded");
+
+    /* start the receiver thread */
+    thread_create(_receiver_stack, sizeof(_receiver_stack),
+                  THREAD_PRIORITY_MAIN - 1, 0, receiver, NULL, "receiver thread");
 
     /* call the sender */
     sender();

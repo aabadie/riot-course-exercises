@@ -8,6 +8,9 @@
 
 #include <string.h>
 
+#include "thread.h"
+#include "msg.h"
+
 #include "xtimer.h"
 
 #include "net/loramac.h"
@@ -36,14 +39,8 @@ static void sender(void)
         printf("Sending message: %s\n", message);
         uint8_t ret = semtech_loramac_send(&loramac, (uint8_t *)message,
                                            strlen(message));
-        if (ret != SEMTECH_LORAMAC_TX_OK) {
+        if (ret != SEMTECH_LORAMAC_TX_DONE) {
             printf("Cannot send message '%s', ret code: %d\n", message, ret);
-            continue;
-        }
-
-        /* wait for any potential received data */
-        if (semtech_loramac_recv(&loramac) == SEMTECH_LORAMAC_DATA_RECEIVED) {
-            /* TODO: print a message with the received data */
         }
     }
 

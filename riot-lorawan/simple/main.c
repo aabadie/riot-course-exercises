@@ -38,7 +38,7 @@ int main(void)
         /* TODO: send the LoRaWAN message (check return code!) */
         printf("Sending message: %s\n", message);
 
-        /* TODO: wait for any potentially received data */
+        /* TODO: check send return status */
     }
 
     return 0; /* should never be reached */

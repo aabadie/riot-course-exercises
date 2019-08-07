@@ -54,13 +54,9 @@ static void sender(void)
         /* send the LoRaWAN message */
         uint8_t ret = semtech_loramac_send(&loramac, (uint8_t *)message,
                                            strlen(message));
-        if (ret != SEMTECH_LORAMAC_TX_OK) {
+        if (ret != SEMTECH_LORAMAC_TX_DONE) {
             printf("Cannot send message '%s', ret code: %d\n", message, ret);
-            continue;
         }
-
-        /* wait for any potential received data */
-        semtech_loramac_recv(&loramac);
     }
 
     /* this should never be reached */

@@ -6,17 +6,15 @@ BOARD ?= b-l072z-lrwan1
 DRIVER ?= sx1276
 
 # Default region is Europe and default band is 868MHz
-REGION ?= EU868
+LORA_REGION ?= EU868
 
 USEMODULE += xtimer
 USEMODULE += $(DRIVER) 
 USEPKG += semtech-loramac
+USEMODULE += semtech_loramac_rx
 
 DEVELHELP ?= 1
 
 RIOTBASE ?= $(CURDIR)/../../../../RIOT
-
-CFLAGS += -DREGION_$(REGION)
-CFLAGS += -DLORAMAC_ACTIVE_REGION=LORAMAC_REGION_$(REGION)
 
 include $(RIOTBASE)/Makefile.include
