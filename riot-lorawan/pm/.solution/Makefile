@@ -21,4 +21,7 @@ DEVELHELP ?= 1
 
 RIOTBASE ?= $(CURDIR)/../../../../RIOT
 
+# Enable lowest possible power mode (e.g. STANDBY mode on STM32)
+CFLAGS += '-DPM_BLOCKER_INITIAL={ .val_u32 = 0x01010100 }'
+
 include $(RIOTBASE)/Makefile.include

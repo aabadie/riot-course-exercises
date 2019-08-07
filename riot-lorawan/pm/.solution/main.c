@@ -20,13 +20,12 @@
 
 #include "board.h"
 
-#ifdef MODULE_PM_LAYERED
 #include "pm_layered.h"
-#endif
+
 #include "periph/rtc.h"
 
-/* Use the STOP mode to ensure memory retention between each send */
-#define PM_MODE             (1)
+/* Low-power mode level */
+#define PM_LOCK_LEVEL       (1)
 
 /* Messages are sent every 20s to respect the duty cycle on each channel */
 #define PERIOD              (20U)
@@ -51,6 +50,10 @@ static const uint8_t appkey[LORAMAC_APPKEY_LEN] = { 0x00, 0x00, 0x00, 0x00, 0x00
 static void rtc_cb(void *arg)
 {
     (void) arg;
+
+    /* block sleep level mode until the next sending cycle has completed */
+    pm_block(PM_LOCK_LEVEL);
+
     msg_t msg;
     msg_send(&msg, sender_pid);
 }
@@ -65,13 +68,18 @@ static void _prepare_next_alarm(void)
     rtc_set_alarm(&time, rtc_cb, NULL);
 }
 
-static void sender(void)
+static void *sender(void *arg)
 {
+    (void)arg;
+
     msg_t msg;
     msg_t msg_queue[8];
     msg_init_queue(msg_queue, 8);
 
     while (1) {
+        /* waiting for IPC message from wake-up alarm */
+        msg_receive(&msg);
+
         /* do some measurements */
         uint16_t humidity = 0;
         int16_t temperature = 0;
@@ -99,13 +107,8 @@ static void sender(void)
         /* schedule the next wake-up alarm */
         _prepare_next_alarm();
 
-#ifdef MODULE_PM_LAYERED
-        /* enable low-power mode */
-        pm_set(PM_MODE);
-#endif
-
-        /* waiting for IPC message from wake-up alarm */
-        msg_receive(&msg);
+        /* go back to sleep */
+        pm_unblock(PM_LOCK_LEVEL);
     }
 
     /* this should never be reached */
@@ -141,20 +144,31 @@ int main(void)
     semtech_loramac_set_appeui(&loramac, appeui);
     semtech_loramac_set_appkey(&loramac, appkey);
 
-    /* start the OTAA join procedure */
-    puts("Starting join procedure");
-    if (semtech_loramac_join(&loramac, LORAMAC_JOIN_OTAA) != SEMTECH_LORAMAC_JOIN_SUCCEEDED) {
-        puts("Join procedure failed");
-        return 1;
+    /* Join the network if not already joined */
+    if (!semtech_loramac_is_mac_joined(&loramac)) {
+        /* Start the Over-The-Air Activation (OTAA) procedure to retrieve the
+         * generated device address and to get the network and application session
+         * keys.
+         */
+        puts("Starting join procedure");
+        if (semtech_loramac_join(&loramac, LORAMAC_JOIN_OTAA) != SEMTECH_LORAMAC_JOIN_SUCCEEDED) {
+            puts("Join procedure failed");
+            return 1;
+        }
+
+        /* Save current MAC state to EEPROM */
+        semtech_loramac_save_config(&loramac);
     }
 
     puts("Join procedure succeeded");
 
-    /* set the sender PID to this thread */
-    sender_pid = thread_getpid();
+    /* start the sender thread */
+    sender_pid = thread_create(sender_stack, sizeof(sender_stack),
+                               SENDER_PRIO, 0, sender, NULL, "sender");
 
-    /* call the sender */
-    sender();
+    /* trigger the first send */
+    msg_t msg;
+    msg_send(&msg, sender_pid);
 
     return 0; /* should never be reached */
 }

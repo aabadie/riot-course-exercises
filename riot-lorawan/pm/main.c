@@ -69,10 +69,7 @@ static void sender(void)
 
         /* TODO: schedule the next wake-up alarm */
 
-        /* TODO: switch to low-power mode */
-
-        /* waiting for IPC message from wake-up alarm */
-        msg_receive(&msg);
+        /* TODO: unlock low power mode */
     }
 
     /* this should never be reached */
@@ -105,11 +102,20 @@ int main(void)
     semtech_loramac_set_appeui(&loramac, appeui);
     semtech_loramac_set_appkey(&loramac, appkey);
 
-    /* start the OTAA join procedure */
-    puts("Starting join procedure");
-    if (semtech_loramac_join(&loramac, LORAMAC_JOIN_OTAA) != SEMTECH_LORAMAC_JOIN_SUCCEEDED) {
-        puts("Join procedure failed");
-        return 1;
+    /* Join the network if not already joined */
+    if (!semtech_loramac_is_mac_joined(&loramac)) {
+        /* Start the Over-The-Air Activation (OTAA) procedure to retrieve the
+         * generated device address and to get the network and application session
+         * keys.
+         */
+        puts("Starting join procedure");
+        if (semtech_loramac_join(&loramac, LORAMAC_JOIN_OTAA) != SEMTECH_LORAMAC_JOIN_SUCCEEDED) {
+            puts("Join procedure failed");
+            return 1;
+        }
+
+        /* Save current MAC state to EEPROM */
+        semtech_loramac_save_config(&loramac);
     }
 
     puts("Join procedure succeeded");

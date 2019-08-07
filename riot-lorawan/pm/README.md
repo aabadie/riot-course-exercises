@@ -2,19 +2,26 @@
 
 ## Goal
 
-Write an application that periodically sends data and sleeps for reducing
-power consumption.
+Write an application that periodically sends data and sleeps between each send
+for reducing power consumption (using STANDBY low power mode).
 
 ## Instructions
 
-- Start from application [riot-lorawan/sensor](../sensor)
+- Start from application [riot-lorawan/lpp](../lpp)
+- In the application Makefile, unlock by default the STANDBY low power mode by
+  adding before the line `include $(RIOTBASE)/Makefile.include`:
+  ```
+  CFLAGS += '-DPM_BLOCKER_INITIAL={ .val_u32 = 0x01010100 }'
+  ```
+- in main.c, edit the EUIS and key for OTAA activation
 - Modify the sender thread so that it triggers a send only after an IPC
-  message (`msg_t` type) is received
-- After a LoRaWAN send, configure an RTC alarm 20s later
-- In the RTC alarm callback, send a message to the sender thread
-- Test the application
-- Include `pm_layered.h` and use `pm_set(1)` to put the CPU in STOP mode after
-  the RTC alarm is set (check the differences with `pm_set(0)`)
+  message (`msg_t` type) is received (e.g. use `msg_receive` at the beginning
+  of the while loop)
+- After a LoRaWAN send, configure an RTC alarm 20s later and finally unlock the
+  STOP power mode
+- In the RTC alarm callback, lock the STOP power mode (1) and then send a
+  message to the sender thread
+- Test your application
 
 _TIP_: Check the RIOT RTC API in
  `http://doc.riot-os.org/group__drivers__periph__rtc.html`
